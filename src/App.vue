@@ -5,6 +5,7 @@ import { useStore } from 'vuex';
 import { computed, onBeforeMount } from 'vue';
 import { BusStopsFetchStatus } from './store';
 import BaseButton from './components/BaseButton.vue';
+import { RouterView } from 'vue-router';
 
 const store = useStore()
 
@@ -28,11 +29,11 @@ onBeforeMount(() => {
                 <NavigationBar />
 
                 <main class="main-content">
-                    <router-view v-slot="{ Component }">
-                        <transition name="fade" mode="out-in">
+                    <RouterView v-slot="{ Component }">
+                        <Transition name="fade" mode="out-in">
                             <component :is="Component" />
-                        </transition>
-                    </router-view>
+                        </Transition>
+                    </RouterView>
                 </main>
             </div>
             <div v-else-if="status === BusStopsFetchStatus.FETCHING">

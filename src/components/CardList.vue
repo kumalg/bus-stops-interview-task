@@ -6,6 +6,7 @@
     <button
       v-if="reversible"
       class="list-title"
+      :class="{ 'has-items': filteredItems.length }"
       @click="isReversed = !isReversed"
       :tabindex="reversible ? 0 : -1"
       type="button"
@@ -19,10 +20,9 @@
     <p v-else class="list-title">
       {{ subtitle }}
     </p>
-
     
     <transition name="fade" mode="out-in">
-      <ul :key="`items_${filteredItems.length}_${isReversed}`" class="list">
+      <ul v-if="filteredItems.length" :key="`items_${filteredItems.length}_${isReversed}`" class="list">
         <li
           v-for="item in filteredItems"
           :key="item"
@@ -33,6 +33,9 @@
           </button>
         </li>
       </ul>
+      <p v-else-if="items.length" class="message">
+        No items found
+      </p>
     </transition>
   </BaseCard>
 </template>
@@ -173,6 +176,14 @@ const selectItem = (item: string) => {
         color: $color-accent;
       }
     }
+  }
+
+  .message {
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    color: $color-gray-700;
+    margin: $card-padding;
+    padding: 0;
   }
 }
 </style>

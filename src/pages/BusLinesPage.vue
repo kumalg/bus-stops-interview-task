@@ -43,17 +43,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed,  ref } from 'vue';
+import { computed,  onBeforeMount,  ref, watch } from 'vue';
 import { useStore } from 'vuex';
 
 import BaseButton from '@/components/BaseButton.vue';
 import BaseCard from '@/components/BaseCard.vue'
 import BaseCardEmpty from '@/components/BaseCardEmpty.vue';
 import CardList from '@/components/CardList.vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const store = useStore()
 
-const lines = computed(() => store.getters.lines)
+const lines = computed<number[]>(() => store.getters.lines)
 const selectedLine = ref<null | number>(null)
 
 const selectedLineStops = ref<string[]>([])
@@ -61,16 +63,55 @@ const selectedLineStop = ref<null | string>(null)
 
 const selectedLineStopTimes = ref<string[]>([])
 
-const selectLine = async (line: number) => {
+const selectLine = async (line: number, withRouteChange = true) => {
   selectedLine.value = line
   selectedLineStop.value = null
   selectedLineStops.value = await store.dispatch('getLineStops', line)
+
+  if (withRouteChange) {
+    router.push({
+      ...router.currentRoute.value,
+      query: {
+        line
+      }
+    })
+  }
 }
 
 const selectLineStop = async (stop: string) => {
   selectedLineStop.value = stop
   selectedLineStopTimes.value = await store.dispatch('getTimesForLineStop', { line: selectedLine.value, stop })
 }
+
+const lineFromQuery = () => {
+  const { line } = router.currentRoute.value.query
+
+  if (line && typeof line === 'string') {
+    const lineNumber = parseInt(line)
+
+    if (lines.value.includes(lineNumber)) {
+      return lineNumber
+    }
+  }
+
+  return null
+}
+
+onBeforeMount(async () => {
+  const line = lineFromQuery()
+
+  if (line) {
+    await selectLine(line, false)
+  }
+})
+
+watch(() => router.currentRoute.value.fullPath, async () => {
+  const line = lineFromQuery()
+
+  if (line && line !== selectedLine.value) {
+    await selectLine(line, false)
+  }
+}) 
 </script>
 
 <style lang="scss" scoped>
