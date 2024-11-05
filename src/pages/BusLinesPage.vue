@@ -63,10 +63,15 @@ const selectedLineStop = ref<null | string>(null)
 
 const selectedLineStopTimes = ref<string[]>([])
 
-const selectLine = async (line: number, withRouteChange = true) => {
+const selectLine = async (line: number | null, withRouteChange = true) => {
   selectedLine.value = line
   selectedLineStop.value = null
-  selectedLineStops.value = await store.dispatch('getLineStops', line)
+
+  if (line === null) {
+    selectedLineStops.value = []
+  } else {
+    selectedLineStops.value = await store.dispatch('getLineStops', line)
+  }
 
   if (withRouteChange) {
     router.push({
@@ -78,8 +83,9 @@ const selectLine = async (line: number, withRouteChange = true) => {
   }
 }
 
-const selectLineStop = async (stop: string) => {
+const selectLineStop = async (stop: string | null) => {
   selectedLineStop.value = stop
+  
   selectedLineStopTimes.value = await store.dispatch('getTimesForLineStop', { line: selectedLine.value, stop })
 }
 
@@ -108,7 +114,7 @@ onBeforeMount(async () => {
 watch(() => router.currentRoute.value.fullPath, async () => {
   const line = lineFromQuery()
 
-  if (line && line !== selectedLine.value) {
+  if (line !== selectedLine.value) {
     await selectLine(line, false)
   }
 }) 
