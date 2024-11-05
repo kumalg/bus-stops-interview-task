@@ -7,12 +7,19 @@
         </li> 
       </ul> 
     </BaseCard>
-    <BaseCard>
-      {{ selectedLine }}
-      Bus Lines
+    
+    <BaseCard v-if="!selectedLine">
+      Please select the bus line first
     </BaseCard>
-    <BaseCard>
-      Bus Lines
+    <BaseCard v-else :title="`Bus Line: ${selectedLine}`">
+      hehe
+    </BaseCard>
+    
+    <BaseCard v-if="!selectedLine">
+      Please select the bus line first
+    </BaseCard>
+    <BaseCard v-else>
+      Please select the bus stop first
     </BaseCard>
   </div>
 </template>
