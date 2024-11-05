@@ -12,8 +12,15 @@
       v-if="!selectedLine"
       message="Please select the bus line first"
     />
-    <BaseCard v-else :title="`Bus Line: ${selectedLine}`">
-      <p>Bus Stops <button @click="toggleStopsOrder()">X</button></p>
+    <BaseCard v-else :title="`Bus Line: ${selectedLine}`" :without-paddings="true">
+      <p class="list-title">
+        Bus Stops
+        <ArrowBottomIcon
+          class="order-icon"
+          :class="{flip: selectedLineStopsOrder === 'desc' }"
+          @click="toggleStopsOrder()"
+        />
+      </p>
       <ul class="list">
         <li v-for="stop in orderedStops" :key="stop" @click="selectLineStop(stop)">
           {{ stop }}
@@ -25,8 +32,8 @@
       v-if="!selectedLine || !selectedLineStop"
       :message="!selectedLine ? 'Please select the bus line first' : 'Please select the bus stop first'"
     />
-    <BaseCard v-else :title="`Bus Stop: ${selectedLineStop}`">
-      Time
+    <BaseCard v-else :title="`Bus Stop: ${selectedLineStop}`" :without-paddings="true">
+      <p class="list-title">Time</p>
       <ul class="list">
         <li v-for="time in selectedLineStopTimes" :key="time">{{ time }}</li>
       </ul>
@@ -45,6 +52,8 @@ import { toSorted } from '@/assets/sort';
 import BaseButton from '@/components/BaseButton.vue';
 import BaseCard from '@/components/BaseCard.vue'
 import BaseCardEmpty from '@/components/BaseCardEmpty.vue';
+
+import ArrowBottomIcon from '@/components/ArrowBottomIcon.vue'
 
 const store = useStore()
 const lines = computed(() => store.getters.lines)
@@ -92,6 +101,34 @@ const toggleStopsOrder = () => {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
+  }
+
+  .list-title {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    letter-spacing: 0.025em;
+    font-weight: 600;
+    display: flex;
+    gap: 0.25rem;
+    color: $color-gray-4;
+    margin: 0;
+    padding: $card-padding;
+    border-bottom: 1px solid $color-gray-15;
+  }
+
+  .order-icon {
+    color: $color-gray-3;
+    cursor: pointer;
+
+    @include default-transition('color, transform');
+
+    &:hover {
+      color: $color-gray-4;
+    }
+
+    &.flip {
+      transform: rotate(180deg);
+    }
   }
 
   .list {

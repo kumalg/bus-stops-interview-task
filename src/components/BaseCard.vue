@@ -32,11 +32,11 @@ withDefaults(defineProps<{
     border: 2px solid red;
   }
 
-  &:not(.no-paddings) {
-    .card-header {
-      padding: $card-padding $card-padding 0.5rem $card-padding;
-    }
+  .card-header {
+    padding: $card-padding $card-padding 0.5rem $card-padding;
+  }
 
+  &:not(.no-paddings) {
     .card-body {
       padding: $card-padding;
       flex: 1;
