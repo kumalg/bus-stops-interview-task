@@ -29,8 +29,8 @@ const cardEl = ref<HTMLDivElement | null>(null)
 const cardSize = ref<{width: number, height: number}>({width: 0, height: 0})
 
 const svgSize = computed(() => ({
-  width: cardSize.value.width + 2,
-  height: cardSize.value.height + 2,
+  width: Math.ceil(cardSize.value.width + 2),
+  height: Math.ceil(cardSize.value.height + 2),
 }))
 
 const resizeObserver = new ResizeObserver(([entry]) => {

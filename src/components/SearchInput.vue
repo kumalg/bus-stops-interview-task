@@ -2,7 +2,7 @@
   <div :class="classes">
     <label class="labelled-container">
       <span class="placeholder">{{ placeholder }}</span>
-      <input class="input" type="text" :value="modelValue" @input="handleInput($event)" @focus="setFocus(true)" @blur="setFocus(false)" />
+      <input class="input" type="text" :value="internalValue" @input="handleInput($event)" @focus="setFocus(true)" @blur="setFocus(false)" />
       <SearchIcon class="search-icon" />
     </label>
   </div>
@@ -25,13 +25,19 @@ const props = withDefaults(defineProps<{
 })
 
 const focused = ref(false);
+const internalValue = ref(props.modelValue)
 
-const classes = computed(() => (['search-input', { focused: focused.value, filled: !!props.modelValue }]))
+const classes = computed(() => (['search-input', { focused: focused.value, filled: !!internalValue.value }]))
 
-const handleInput = debounce((event: Event) => {
-  const el = event.target as HTMLInputElement
-  emit('update:model-value', el.value)
+const emitModelUpdate = debounce((value: string) => {
+  emit('update:model-value', value)
 }, 250)
+
+const handleInput = (event: Event) => {
+  const el = event.target as HTMLInputElement
+  internalValue.value = el.value
+  emitModelUpdate(el.value)
+}
 
 const setFocus = (value: boolean) => {
   focused.value = value
