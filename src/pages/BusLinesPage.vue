@@ -12,7 +12,8 @@
       Please select the bus line first
     </BaseCard>
     <BaseCard v-else :title="`Bus Line: ${selectedLine}`">
-      <ul>
+      Bus Stops
+      <ul class="list">
         <li v-for="stop in selectedLineStops" :key="stop" @click="selectLineStop(stop)">
           {{ stop }}
         </li>
@@ -25,8 +26,11 @@
     <BaseCard v-else-if="!selectedLineStop">
       Please select the bus stop first
     </BaseCard>
-    <BaseCard v-else>
-      Times for {{ selectedLineStopTimes }}
+    <BaseCard v-else :title="`Bus Stop: ${selectedLineStop}`">
+      Time
+      <ul class="list">
+        <li v-for="time in selectedLineStopTimes" :key="time">{{ time }}</li>
+      </ul>
     </BaseCard>
   </div>
 </template>
@@ -64,7 +68,9 @@ const selectLineStop = async(stop: string) => {
 .bus-lines-page {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto 1fr;
   gap: 1rem;
+  height: 100%;
 
   .bus-line-select-card {
     grid-column: 1 / span 2;
@@ -77,6 +83,10 @@ const selectLineStop = async(stop: string) => {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
+  }
+
+  .list {
+    overflow: auto;
   }
 }
 </style>

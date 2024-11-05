@@ -14,35 +14,39 @@ onMounted(() => {
 <template>
     <div class="app">
         <div class="app-container">
-            <MainHeader title="Timetable" />
+            <MainHeader title="Timetable" class="main-header" />
 
-            <div class="main-container">
-                <NavigationBar />
+            <NavigationBar />
 
-                <main class="main-content">
-                    <RouterView />
-                </main>
-            </div>
+            <main class="main-content">
+                <RouterView />
+            </main>
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .app {
-    min-height: 100vh;
+    height: 100vh;
     padding: 2.5rem 2rem;
 
     .app-container {
         max-width: 1376px;
         margin: 0 auto;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 
-    .main-container {
-        margin-top: 1.5rem;
+    .main-header {
+        margin-bottom: 0.5rem;
     }
 
     .main-content {
-        margin-top: 1rem;
+        flex: 1;
+        min-height: 0;
+        // margin-top: 1rem;
     }
 }
 </style>
