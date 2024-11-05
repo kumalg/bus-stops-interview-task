@@ -2,18 +2,26 @@
 import NavigationBar from '@/components/NavigationBar.vue';
 import MainHeader from './components/MainHeader.vue';
 import { useStore } from 'vuex';
-import { onMounted } from 'vue';
+import { computed, onBeforeMount } from 'vue';
+import { BusStopsFetchStatus } from './store';
+import BaseButton from './components/BaseButton.vue';
 
 const store = useStore()
 
-onMounted(() => {
+const status = computed<BusStopsFetchStatus>(() => store.state.status)
+
+const fetchData = () => {
     store.dispatch('fetchBusStops')
+}
+
+onBeforeMount(() => {
+    fetchData()
 })
 </script>
 
 <template>
     <div class="app">
-        <div class="app-container">
+        <div v-if="status === BusStopsFetchStatus.FETCHED" class="app-container">
             <MainHeader title="Timetable" class="main-header" />
 
             <NavigationBar />
@@ -21,6 +29,13 @@ onMounted(() => {
             <main class="main-content">
                 <RouterView />
             </main>
+        </div>
+        <div v-else-if="status === BusStopsFetchStatus.FETCHING">
+            Loading
+        </div>
+        <div v-else-if="status === BusStopsFetchStatus.ERROR" class="error">
+            Error
+            <BaseButton @click="fetchData()">Fetch again</BaseButton>
         </div>
     </div>
 </template>
