@@ -1,15 +1,17 @@
 <template>
   <BaseCard :title="title" :without-paddings="true" class="card-list">
-    <SearchInput v-if="filterable" v-model="userInput" />
+    <div v-if="filterable" class="search-row">
+      <SearchInput v-model="userInput" class="search-input" />
+    </div>
     <p
       v-if="reversible"
       class="list-title"
-      @click="reverseItems()"
+      @click="isReversed = !isReversed"
     >
       {{ subtitle }}
       <ArrowBottomIcon
         class="order-icon"
-        :class="{flip: isReversed }"
+        :class="{ flip: isReversed }"
       />
     </p>
     <p v-else class="list-title">
@@ -32,7 +34,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import ArrowBottomIcon from './ArrowBottomIcon.vue';
+import ArrowBottomIcon from '@/icons/ArrowBottomIcon.vue';
 import BaseCard from './BaseCard.vue';
 import SearchInput from './SearchInput.vue';
 
@@ -76,10 +78,6 @@ const filteredItems = computed(() => {
   return orderedItems.value.filter(item => item.toLowerCase().includes(userInput.value.trim().toLowerCase()))
 })
 
-const reverseItems = () => {
-  isReversed.value = !isReversed.value
-}
-
 const selectItem = (item: string) => {
   emit('update:model-value', item)
 }
@@ -115,6 +113,15 @@ const selectItem = (item: string) => {
       &.flip {
         transform: rotate(180deg);
       }
+    }
+  }
+
+  .search-row {
+    padding: 0.5rem;
+
+    .search-input {
+      width: 18rem;
+      max-width: 100%;
     }
   }
 
