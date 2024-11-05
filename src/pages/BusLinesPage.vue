@@ -2,18 +2,13 @@
   <div class="bus-lines-page">
     <BaseCard class="bus-line-select-card" title="Select Bus Line">
       <ul class="bus-lines-list">
-        <li class="bus-line-list-item">
-          <BaseButton type="button">128</BaseButton>
-        </li>
-        <li class="bus-line-list-item">
-          <BaseButton type="button">128</BaseButton>
-        </li>
-        <li class="bus-line-list-item">
-          <BaseButton type="button">128</BaseButton>
-        </li>     
+        <li v-for="line in lines" :key="line" class="bus-line-list-item" @click="selectLine(line)">
+          <BaseButton type="button" :is-active="selectedLine === line">{{ line }}</BaseButton>
+        </li> 
       </ul> 
     </BaseCard>
     <BaseCard>
+      {{ selectedLine }}
       Bus Lines
     </BaseCard>
     <BaseCard>
@@ -25,6 +20,18 @@
 <script setup lang="ts">
 import BaseButton from '@/components/BaseButton.vue';
 import BaseCard from '@/components/BaseCard.vue'
+import { computed,  ref } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore()
+
+const lines = computed(() => store.getters.lines)
+
+const selectedLine = ref<null | number>(null)
+
+const selectLine = (line: number) => {
+  selectedLine.value = line
+}
 </script>
 
 <style lang="scss" scoped>
@@ -43,6 +50,7 @@ import BaseCard from '@/components/BaseCard.vue'
     margin: 0;
     display: flex;
     gap: 0.5rem;
+    flex-wrap: wrap;
   }
 }
 </style>

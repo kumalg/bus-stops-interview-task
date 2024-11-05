@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import NavigationBar from '@/components/NavigationBar.vue';
 import MainHeader from './components/MainHeader.vue';
+import { useStore } from 'vuex';
+import { onMounted } from 'vue';
+
+const store = useStore()
+
+onMounted(() => {
+    store.dispatch('fetchBusStops')
+})
 </script>
 
 <template>
