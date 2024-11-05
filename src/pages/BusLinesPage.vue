@@ -13,17 +13,25 @@
       message="Please select the bus line first"
     />
     <BaseCard v-else :title="`Bus Line: ${selectedLine}`" :without-paddings="true">
-      <p class="list-title">
+      <p
+        class="list-title"
+        @click="toggleStopsOrder()"
+      >
         Bus Stops
         <ArrowBottomIcon
           class="order-icon"
           :class="{flip: selectedLineStopsOrder === 'desc' }"
-          @click="toggleStopsOrder()"
         />
       </p>
       <ul class="list">
-        <li v-for="stop in orderedStops" :key="stop" @click="selectLineStop(stop)">
-          {{ stop }}
+        <li
+          v-for="stop in orderedStops"
+          :key="stop"
+          class="list-item"
+        >
+          <button class="list-item-button action" :class="{ active: selectedLineStop === stop }" type="button" @click="selectLineStop(stop)">
+            {{ stop }}
+          </button>
         </li>
       </ul>
     </BaseCard>
@@ -35,7 +43,15 @@
     <BaseCard v-else :title="`Bus Stop: ${selectedLineStop}`" :without-paddings="true">
       <p class="list-title">Time</p>
       <ul class="list">
-        <li v-for="time in selectedLineStopTimes" :key="time">{{ time }}</li>
+        <li
+          v-for="time in selectedLineStopTimes"
+          :key="time"
+          class="list-item"
+        >
+          <button class="list-item-button" type="button">
+            {{ time }}
+          </button>
+        </li>
       </ul>
     </BaseCard>
   </div>
@@ -64,7 +80,15 @@ const selectedLineStopsOrder = ref<Order>('asc')
 const selectedLineStop = ref<null | string>(null)
 const selectedLineStopTimes = ref<string[]>([])
 
-const orderedStops = computed(() => toSorted(selectedLineStops.value, selectedLineStopsOrder.value))
+const orderedStops = computed(() => {
+  if (selectedLineStopsOrder.value === 'asc') {
+    return selectedLineStops.value
+  }
+
+  const copy = [...selectedLineStops.value]
+  copy.reverse()
+  return copy
+})
 
 const selectLine = async (line: number) => {
   selectedLine.value = line
@@ -110,29 +134,69 @@ const toggleStopsOrder = () => {
     font-weight: 600;
     display: flex;
     gap: 0.25rem;
-    color: $color-gray-4;
+    color: $color-gray-800;
     margin: 0;
     padding: $card-padding;
-    border-bottom: 1px solid $color-gray-15;
-  }
+    border-bottom: 1px solid $color-gray-500;
 
-  .order-icon {
-    color: $color-gray-3;
-    cursor: pointer;
+    &:has(.order-icon) {
+      cursor: pointer;
 
-    @include default-transition('color, transform');
-
-    &:hover {
-      color: $color-gray-4;
+      &:hover .order-icon {
+        color: $color-gray-800;
+      }
     }
 
-    &.flip {
-      transform: rotate(180deg);
+    .order-icon {
+      color: $color-gray-700;
+
+      @include default-transition('color, transform');
+
+      &.flip {
+        transform: rotate(180deg);
+      }
     }
   }
 
   .list {
     overflow: auto;
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
+
+  .list-item {
+    &:not(:last-child) {
+      border-bottom: 1px solid $color-gray-400;
+    }
+  }
+
+  .list-item-button {
+    display: block;
+    width: 100%;
+    height: 3.5rem;
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    padding: 0 $card-padding;
+    color: $color-gray-800;
+    font-family: inherit;
+
+    @include default-transition('color, background-color');
+
+    &.action {
+      cursor: pointer;
+
+      &:hover, &.hover {
+        background-color: $color-gray-300;
+      }
+
+      &:active, &.active {
+        color: $color-accent;
+      }
+    }
+
+  }
+  
 }
 </style>

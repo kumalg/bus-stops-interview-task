@@ -27,7 +27,7 @@ withDefaults(
     height: 100%;
     font-size: 0.875rem;
     line-height: 1.5rem;
-    color: $color-gray-3;
+    color: $color-gray-700;
     text-align: center;
     margin: 0;
     padding: 0;

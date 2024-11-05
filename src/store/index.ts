@@ -81,10 +81,10 @@ export default createStore<State>({
         return state.lineStops[line]
       }
 
-      const stops = toSorted(new Set(state.busStops
-        .filter(busStop => busStop.line === line)
-        .map(({ stop }) => stop)
-      ))
+      const stopFullObjects = state.busStops.filter(busStop => busStop.line === line)
+      stopFullObjects.sort(({ order: aOrder }, { order: bOrder }) => aOrder - bOrder)
+      
+      const stops = [...new Set(stopFullObjects.map(({ stop }) => stop))]
 
       commit(Mutation.SetLineStops, { line, stops })
 

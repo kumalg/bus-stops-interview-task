@@ -23,7 +23,7 @@ withDefaults(defineProps<{
 
 <style lang="scss" scoped>
 .card {
-  background-color: $color-gray-0;
+  background-color: $color-gray-000;
   border-radius: 0.25rem;
   display: flex;
   flex-direction: column;

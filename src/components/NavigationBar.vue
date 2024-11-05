@@ -33,18 +33,18 @@ import BaseCard from '@/components/BaseCard.vue'
         text-decoration: none;
         font-size: 0.875rem;
         line-height: 1.5rem;
-        color: $color-gray-2;
+        color: $color-gray-600;
         transition-property: border-bottom-color, color;
         transition-duration: .2s;
         transition-timing-function: ease;
 
         &:hover {
-            color: $color-gray-3;
+            color: $color-gray-700;
         }
 
         &.router-link-active {
             border-bottom-color: $color-accent;
-            color: $color-gray-4;
+            color: $color-gray-800;
         }
     }
 }

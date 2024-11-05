@@ -33,6 +33,7 @@ const classes = computed(() => {
   user-select: none;
   border: none;
   border-radius: 0.25rem;
+  font-family: inherit;
   
   @include default-transition('background-color, color');
 
@@ -42,7 +43,7 @@ const classes = computed(() => {
   }
 
   &.theme-primary {
-    color: $color-gray-0;
+    color: $color-gray-000;
     background-color: $color-accent;
   }
 
