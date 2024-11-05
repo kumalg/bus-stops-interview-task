@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
-import BaseCard from './BaseCard.vue';
+import BaseCard from '@/components/BaseCard.vue';
 
 withDefaults(
   defineProps<{
@@ -63,6 +63,8 @@ onBeforeUnmount(() => {
     position: absolute;
     top: -1px;
     left: -1px;
+    user-select: none;
+    pointer-events: none;
   }
 
   .svg-rect {

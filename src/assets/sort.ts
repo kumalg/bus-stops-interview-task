@@ -1,4 +1,4 @@
-import { Order } from "@/types"
+import type { Order } from "@/types"
 
 type ComparableItem = string | number | Date
 

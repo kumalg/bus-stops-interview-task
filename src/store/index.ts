@@ -1,6 +1,8 @@
-import { toSorted, toSortedTimes } from '@/assets/sort'
-import { BusStop } from '@/types'
+import type { BusStop } from '@/types'
+
 import { createStore } from 'vuex'
+
+import { toSorted, toSortedTimes } from '@/assets/sort'
 
 export enum BusStopsFetchStatus {
   UNFETCHED = 'UNFETCHED',

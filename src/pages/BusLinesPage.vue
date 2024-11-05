@@ -45,12 +45,12 @@
 <script setup lang="ts">
 import { computed,  onBeforeMount,  ref, watch } from 'vue';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
 import BaseButton from '@/components/BaseButton.vue';
 import BaseCard from '@/components/BaseCard.vue'
 import BaseCardEmpty from '@/components/BaseCardEmpty.vue';
 import CardList from '@/components/CardList.vue';
-import { useRouter } from 'vue-router';
 
 const router = useRouter()
 const store = useStore()

@@ -42,9 +42,11 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+
 import ArrowBottomIcon from '@/icons/ArrowBottomIcon.vue';
-import BaseCard from './BaseCard.vue';
-import SearchInput from './SearchInput.vue';
+
+import BaseCard from '@/components/BaseCard.vue';
+import SearchInput from '@/components/SearchInput.vue';
 
 const emit = defineEmits<{
   (e: 'update:model-value', item: string): void

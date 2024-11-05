@@ -9,9 +9,11 @@
 </template>
 
 <script setup lang="ts">
-import { debounce } from '@/assets/debounce';
-import SearchIcon from '@/icons/SearchIcon.vue';
 import { computed, ref } from 'vue';
+
+import { debounce } from '@/assets/debounce';
+
+import SearchIcon from '@/icons/SearchIcon.vue';
 
 const emit = defineEmits<{
   (e: 'update:model-value', value: string): void
