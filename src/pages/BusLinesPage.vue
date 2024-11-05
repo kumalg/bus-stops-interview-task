@@ -12,14 +12,21 @@
       Please select the bus line first
     </BaseCard>
     <BaseCard v-else :title="`Bus Line: ${selectedLine}`">
-      hehe
+      <ul>
+        <li v-for="stop in selectedLineStops" :key="stop" @click="selectLineStop(stop)">
+          {{ stop }}
+        </li>
+      </ul>
     </BaseCard>
     
     <BaseCard v-if="!selectedLine">
       Please select the bus line first
     </BaseCard>
-    <BaseCard v-else>
+    <BaseCard v-else-if="!selectedLineStop">
       Please select the bus stop first
+    </BaseCard>
+    <BaseCard v-else>
+      Times for {{ selectedLineStopTimes }}
     </BaseCard>
   </div>
 </template>
@@ -35,9 +42,21 @@ const store = useStore()
 const lines = computed(() => store.getters.lines)
 
 const selectedLine = ref<null | number>(null)
+const selectedLineStops = ref<string[]>([])
+const selectedLineStop = ref<null | string>(null)
+const selectedLineStopTimes = ref<string[]>([])
 
-const selectLine = (line: number) => {
+const selectLine = async (line: number) => {
   selectedLine.value = line
+  selectedLineStop.value = null
+
+  selectedLineStops.value = await store.dispatch('getLineStops', line)
+}
+
+const selectLineStop = async(stop: string) => {
+  selectedLineStop.value = stop
+
+  selectedLineStopTimes.value = await store.dispatch('getTimesForLineStop', { line: selectedLine.value, stop })
 }
 </script>
 

@@ -1,4 +1,5 @@
 import { BusStop } from '@/types'
+import { k } from 'vitest/dist/reporters-trlZlObr'
 import { createStore } from 'vuex'
 
 enum BusStopsFetchStatus {
@@ -12,21 +13,24 @@ type State = {
   busStops: BusStop[]
   status: BusStopsFetchStatus
   lineStops: {
-    [key in number]: string[]
-  }
+    [key in number]: BusStop['stop'][]
+  },
+  lineStopTimes: Map<{ line: BusStop['line'], stop: BusStop['stop'] }, BusStop['time'][]>
 }
 
 enum Mutation {
   SetBusStops = 'SET_BUS_STOPS',
   SetStatus = 'SET_STATUS',
-  SetLineStops = 'SET_LINE_STOPS'
+  SetLineStops = 'SET_LINE_STOPS',
+  SetLineStopTimes = 'SET_LINE_STOP_TIMES'
 }
 
 export default createStore<State>({
   state: {
     busStops: [],
     status: BusStopsFetchStatus.UNFETCHED,
-    lineStops: {}
+    lineStops: {},
+    lineStopTimes: new Map()
   },
   getters: {
     lines(state) {
@@ -44,6 +48,9 @@ export default createStore<State>({
     },
     [Mutation.SetLineStops](state, { line, stops }: { line: BusStop['line'], stops: BusStop['stop'][] }) {
       state.lineStops[line] = stops
+    },
+    [Mutation.SetLineStopTimes](state, { key, times }: { key: { line: BusStop['line'], stop: BusStop['stop'] }, times: BusStop['time'][] }) {
+      state.lineStopTimes.set(key, times);
     }
   },
   actions: {
@@ -68,7 +75,7 @@ export default createStore<State>({
         commit(Mutation.SetStatus, BusStopsFetchStatus.ERROR)
       }
     },
-    getLineStops({state, commit}, line: number) {
+    getLineStops({ state, commit }, line: number) {
       if (line in state.lineStops && typeof state.lineStops[line] === 'object') {
         return state.lineStops[line]
       }
@@ -76,6 +83,19 @@ export default createStore<State>({
       const stops = [...new Set(state.busStops.filter(busStop => busStop.line === line).map(({ stop }) => stop))]
 
       commit(Mutation.SetLineStops, { line, stops })
+
+      return stops
+    },
+    getTimesForLineStop({ state, commit }, key: { line: BusStop['line'], stop: BusStop['stop'] }) {
+      if (state.lineStopTimes.has(key)) {
+        return state.lineStopTimes.get(key)
+      }
+
+      const times = [...new Set(state.busStops.filter(({ line, stop }) => line === key.line && stop === key.stop).map(({ time }) => time))]
+
+      commit(Mutation.SetLineStopTimes, { key, times })
+
+      return times
     }
   },
   modules: {
