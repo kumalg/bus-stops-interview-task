@@ -3,17 +3,19 @@
     <div v-if="filterable" class="search-row">
       <SearchInput v-model="userInput" class="search-input" />
     </div>
-    <p
+    <button
       v-if="reversible"
       class="list-title"
       @click="isReversed = !isReversed"
+      :tabindex="reversible ? 0 : -1"
+      type="button"
     >
       {{ subtitle }}
       <ArrowBottomIcon
         class="order-icon"
         :class="{ flip: isReversed }"
       />
-    </p>
+    </button>
     <p v-else class="list-title">
       {{ subtitle }}
     </p>
@@ -24,7 +26,7 @@
         :key="item"
         class="list-item"
       >
-        <button class="list-item-button" :class="{ selectable, active: selectable && modelValue === item }" type="button" @click="selectable && selectItem(item)">
+        <button :tabindex="selectable ? 0 : -1" class="list-item-button" :class="{ selectable, active: selectable && modelValue === item }" type="button" @click="selectable && selectItem(item)">
           {{ item }}
         </button>
       </li>
@@ -86,6 +88,10 @@ const selectItem = (item: string) => {
 <style lang="scss" scoped>
 .card-list {
   .list-title {
+    display: block;
+    background-color: transparent;
+    border: none;
+    width: 100%;
     font-size: 0.75rem;
     line-height: 1rem;
     letter-spacing: 0.025em;
