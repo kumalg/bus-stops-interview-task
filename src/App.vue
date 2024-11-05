@@ -1,23 +1,26 @@
 <script setup lang="ts">
-import NavigationBar from '@/components/NavigationBar.vue';
-import MainHeader from './components/MainHeader.vue';
-import { useStore } from 'vuex';
 import { computed, onBeforeMount } from 'vue';
-import { BusStopsFetchStatus } from './store';
-import BaseButton from './components/BaseButton.vue';
+import { useStore } from 'vuex';
 import { RouterView } from 'vue-router';
 
-const store = useStore()
+import { BusStopsFetchStatus } from '@/store';
+import { StoreAction } from '@/store/config';
 
-const status = computed<BusStopsFetchStatus>(() => store.state.status)
+import NavigationBar from '@/components/NavigationBar.vue';
+import MainHeader from '@/components/MainHeader.vue';
+import BaseButton from '@/components/BaseButton.vue';
+
+const store = useStore();
+
+const status = computed<BusStopsFetchStatus>(() => store.state.status);
 
 const fetchData = () => {
-    store.dispatch('fetchBusStops')
-}
+    store.dispatch(StoreAction.FetchBusStops);
+};
 
 onBeforeMount(() => {
-    fetchData()
-})
+    fetchData();
+});
 </script>
 
 <template>
@@ -36,9 +39,7 @@ onBeforeMount(() => {
                     </RouterView>
                 </main>
             </div>
-            <div v-else-if="status === BusStopsFetchStatus.FETCHING">
-                Loading
-            </div>
+            <div v-else-if="status === BusStopsFetchStatus.FETCHING">Loading</div>
             <div v-else-if="status === BusStopsFetchStatus.ERROR" class="error">
                 Error
                 <BaseButton @click="fetchData()">Fetch again</BaseButton>

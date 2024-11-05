@@ -5,8 +5,10 @@ module.exports = {
     "vue/setup-compiler-macros": true
   },
   'extends': [
-    'plugin:vue/vue3-essential',
     'eslint:recommended',
+    'prettier',
+    'plugin:prettier/recommended',
+    'plugin:vue/vue3-essential',
     '@vue/typescript/recommended'
   ],
   parserOptions: {

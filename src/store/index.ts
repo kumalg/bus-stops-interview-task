@@ -1,112 +1,121 @@
-import type { BusStop } from '@/types'
+import type { BusStop } from '@/types';
 
-import { createStore } from 'vuex'
+import { createStore } from 'vuex';
 
-import { toSorted, toSortedTimes } from '@/assets/sort'
+import { toSorted, toSortedTimes } from '@/assets/sort';
+
+import { StoreAction, StoreMutation } from './config';
 
 export enum BusStopsFetchStatus {
-  UNFETCHED = 'UNFETCHED',
-  FETCHING = 'FETCHING',
-  FETCHED = 'FETCHED',
-  ERROR = 'ERROR'
+    UNFETCHED = 'UNFETCHED',
+    FETCHING = 'FETCHING',
+    FETCHED = 'FETCHED',
+    ERROR = 'ERROR'
 }
 
 type State = {
-  busStops: BusStop[]
-  status: BusStopsFetchStatus
-  lineStops: {
-    [key in number]: BusStop['stop'][]
-  },
-  lineStopTimes: Map<{ line: BusStop['line'], stop: BusStop['stop'] }, BusStop['time'][]>
-}
-
-enum Mutation {
-  SetBusStops = 'SET_BUS_STOPS',
-  SetStatus = 'SET_STATUS',
-  SetLineStops = 'SET_LINE_STOPS',
-  SetLineStopTimes = 'SET_LINE_STOP_TIMES'
-}
+    busStops: BusStop[];
+    status: BusStopsFetchStatus;
+    lineStops: {
+        [key in number]: BusStop['stop'][];
+    };
+    lineStopTimes: Map<{ line: BusStop['line']; stop: BusStop['stop'] }, BusStop['time'][]>;
+};
 
 export default createStore<State>({
-  state: {
-    busStops: [],
-    status: BusStopsFetchStatus.UNFETCHED,
-    lineStops: {},
-    lineStopTimes: new Map()
-  },
-  getters: {
-    lines(state) {
-      return toSorted(new Set(state.busStops.map(({ line }) => line)))
+    state: {
+        busStops: [],
+        status: BusStopsFetchStatus.UNFETCHED,
+        lineStops: {},
+        lineStopTimes: new Map()
     },
-    stops(state) {
-      return toSorted(new Set(state.busStops.map(({ stop }) => stop)))
-    }
-  },
-  mutations: {
-    [Mutation.SetBusStops](state, value: BusStop[]) {
-      state.busStops = value
-    },
-    [Mutation.SetStatus](state, value: BusStopsFetchStatus) {
-      state.status = value
-    },
-    [Mutation.SetLineStops](state, { line, stops }: { line: BusStop['line'], stops: BusStop['stop'][] }) {
-      state.lineStops[line] = stops
-    },
-    [Mutation.SetLineStopTimes](state, { key, times }: { key: { line: BusStop['line'], stop: BusStop['stop'] }, times: BusStop['time'][] }) {
-      state.lineStopTimes.set(key, times);
-    }
-  },
-  actions: {
-    async fetchBusStops({ state, commit }) {
-      if (state.status === BusStopsFetchStatus.FETCHING) {
-        return
-      }
-
-      commit(Mutation.SetStatus, BusStopsFetchStatus.FETCHING)
-
-      try {
-        const response = await fetch('http://localhost:3000/stops')
-  
-        if (!response.ok) {
-          commit(Mutation.SetStatus, BusStopsFetchStatus.ERROR)
+    getters: {
+        lines(state) {
+            return toSorted(new Set(state.busStops.map(({ line }) => line)));
+        },
+        stops(state) {
+            return toSorted(new Set(state.busStops.map(({ stop }) => stop)));
         }
-  
-        const json = await response.json();
-        commit(Mutation.SetBusStops, json)
-        commit(Mutation.SetStatus, BusStopsFetchStatus.FETCHED)
-      } catch {
-        commit(Mutation.SetStatus, BusStopsFetchStatus.ERROR)
-      }
     },
-    getLineStops({ state, commit }, line: number) {
-      if (line in state.lineStops && typeof state.lineStops[line] === 'object') {
-        return state.lineStops[line]
-      }
-
-      const stopFullObjects = state.busStops.filter(busStop => busStop.line === line)
-      stopFullObjects.sort(({ order: aOrder }, { order: bOrder }) => aOrder - bOrder)
-      
-      const stops = [...new Set(stopFullObjects.map(({ stop }) => stop))]
-
-      commit(Mutation.SetLineStops, { line, stops })
-
-      return stops
+    mutations: {
+        [StoreMutation.SetBusStops](state, value: BusStop[]) {
+            state.busStops = value;
+        },
+        [StoreMutation.SetStatus](state, value: BusStopsFetchStatus) {
+            state.status = value;
+        },
+        [StoreMutation.SetLineStops](
+            state,
+            { line, stops }: { line: BusStop['line']; stops: BusStop['stop'][] }
+        ) {
+            state.lineStops[line] = stops;
+        },
+        [StoreMutation.SetLineStopTimes](
+            state,
+            {
+                key,
+                times
+            }: { key: { line: BusStop['line']; stop: BusStop['stop'] }; times: BusStop['time'][] }
+        ) {
+            state.lineStopTimes.set(key, times);
+        }
     },
-    getTimesForLineStop({ state, commit }, key: { line: BusStop['line'], stop: BusStop['stop'] }) {
-      if (state.lineStopTimes.has(key)) {
-        return state.lineStopTimes.get(key)
-      }
+    actions: {
+        async [StoreAction.FetchBusStops]({ state, commit }) {
+            if (state.status === BusStopsFetchStatus.FETCHING) {
+                return;
+            }
 
-      const times = toSortedTimes(new Set(state.busStops
-        .filter(({ line, stop }) => line === key.line && stop === key.stop)
-        .map(({ time }) => time)
-      ))
+            commit(StoreMutation.SetStatus, BusStopsFetchStatus.FETCHING);
 
-      commit(Mutation.SetLineStopTimes, { key, times })
+            try {
+                const response = await fetch('http://localhost:3000/stops');
 
-      return times
-    }
-  },
-  modules: {
-  }
-})
+                if (!response.ok) {
+                    commit(StoreMutation.SetStatus, BusStopsFetchStatus.ERROR);
+                }
+
+                const json = await response.json();
+                commit(StoreMutation.SetBusStops, json);
+                commit(StoreMutation.SetStatus, BusStopsFetchStatus.FETCHED);
+            } catch {
+                commit(StoreMutation.SetStatus, BusStopsFetchStatus.ERROR);
+            }
+        },
+        [StoreAction.GetLineStops]({ state, commit }, line: number) {
+            if (line in state.lineStops && typeof state.lineStops[line] === 'object') {
+                return state.lineStops[line];
+            }
+
+            const stopFullObjects = state.busStops.filter((busStop) => busStop.line === line);
+            stopFullObjects.sort(({ order: aOrder }, { order: bOrder }) => aOrder - bOrder);
+
+            const stops = [...new Set(stopFullObjects.map(({ stop }) => stop))];
+
+            commit(StoreMutation.SetLineStops, { line, stops });
+
+            return stops;
+        },
+        [StoreAction.GetTimesForLineStop](
+            { state, commit },
+            key: { line: BusStop['line']; stop: BusStop['stop'] }
+        ) {
+            if (state.lineStopTimes.has(key)) {
+                return state.lineStopTimes.get(key);
+            }
+
+            const times = toSortedTimes(
+                new Set(
+                    state.busStops
+                        .filter(({ line, stop }) => line === key.line && stop === key.stop)
+                        .map(({ time }) => time)
+                )
+            );
+
+            commit(StoreMutation.SetLineStopTimes, { key, times });
+
+            return times;
+        }
+    },
+    modules: {}
+});

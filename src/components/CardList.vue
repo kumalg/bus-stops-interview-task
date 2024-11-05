@@ -1,43 +1,44 @@
 <template>
-  <BaseCard :title="title" :without-paddings="true" class="card-list">
-    <div v-if="filterable" class="search-row">
-      <SearchInput v-model="userInput" class="search-input" />
-    </div>
-    <button
-      v-if="reversible"
-      class="list-title"
-      :class="{ 'has-items': filteredItems.length }"
-      @click="isReversed = !isReversed"
-      :tabindex="reversible ? 0 : -1"
-      type="button"
-    >
-      {{ subtitle }}
-      <ArrowBottomIcon
-        class="order-icon"
-        :class="{ flip: isReversed }"
-      />
-    </button>
-    <p v-else class="list-title">
-      {{ subtitle }}
-    </p>
-    
-    <transition name="fade" mode="out-in">
-      <ul v-if="filteredItems.length" :key="`items_${filteredItems.length}_${isReversed}`" class="list">
-        <li
-          v-for="item in filteredItems"
-          :key="item"
-          class="list-item"
+    <BaseCard :title="title" :without-paddings="true" class="card-list">
+        <div v-if="filterable" class="search-row">
+            <SearchInput v-model="userInput" class="search-input" />
+        </div>
+        <button
+            v-if="reversible"
+            class="list-title"
+            :class="{ 'has-items': filteredItems.length }"
+            @click="isReversed = !isReversed"
+            :tabindex="reversible ? 0 : -1"
+            type="button"
         >
-          <button :tabindex="selectable ? 0 : -1" class="list-item-button" :class="{ selectable, active: selectable && modelValue === item }" type="button" @click="selectable && selectItem(item)">
-            {{ item }}
-          </button>
-        </li>
-      </ul>
-      <p v-else-if="items.length" class="message">
-        No items found
-      </p>
-    </transition>
-  </BaseCard>
+            {{ subtitle }}
+            <ArrowBottomIcon class="order-icon" :class="{ flip: isReversed }" />
+        </button>
+        <p v-else class="list-title">
+            {{ subtitle }}
+        </p>
+
+        <transition name="fade" mode="out-in">
+            <ul
+                v-if="filteredItems.length"
+                :key="`items_${filteredItems.length}_${isReversed}`"
+                class="list"
+            >
+                <li v-for="item in filteredItems" :key="item" class="list-item">
+                    <button
+                        :tabindex="selectable ? 0 : -1"
+                        class="list-item-button"
+                        :class="{ selectable, active: selectable && modelValue === item }"
+                        type="button"
+                        @click="selectable && selectItem(item)"
+                    >
+                        {{ item }}
+                    </button>
+                </li>
+            </ul>
+            <p v-else-if="items.length" class="message">No items found</p>
+        </transition>
+    </BaseCard>
 </template>
 
 <script setup lang="ts">
@@ -49,143 +50,150 @@ import BaseCard from '@/components/BaseCard.vue';
 import SearchInput from '@/components/SearchInput.vue';
 
 const emit = defineEmits<{
-  (e: 'update:model-value', item: string): void
-}>()
+    (e: 'update:model-value', item: string): void;
+}>();
 
-const props = withDefaults(defineProps<{
-  items: string[],
-  subtitle: string,
-  title?: string,
-  reversible?: boolean,
-  selectable?: boolean,
-  filterable?: boolean,
-  modelValue?: string | null,
-}>(), {
-  title: '',
-  reversible: false,
-  selectable: false,
-  modelValue: null
-})
+const props = withDefaults(
+    defineProps<{
+        items: string[];
+        subtitle: string;
+        title?: string;
+        reversible?: boolean;
+        selectable?: boolean;
+        filterable?: boolean;
+        modelValue?: string | null;
+    }>(),
+    {
+        title: '',
+        reversible: false,
+        selectable: false,
+        modelValue: null
+    }
+);
 
-const userInput = ref('')
-const isReversed = ref(false)
+const userInput = ref('');
+const isReversed = ref(false);
 
 const reversedItem = computed(() => {
-  const copy = [...props.items]
-  copy.reverse()
-  return copy
-})
+    const copy = [...props.items];
+    copy.reverse();
+    return copy;
+});
 
 const orderedItems = computed(() => {
-  return isReversed.value ? reversedItem.value : props.items
-})
+    return isReversed.value ? reversedItem.value : props.items;
+});
 
 const filteredItems = computed(() => {
-  if (!props.filterable || !userInput.value) {
-    return orderedItems.value
-  }
+    if (!props.filterable || !userInput.value) {
+        return orderedItems.value;
+    }
 
-  return orderedItems.value.filter(item => item.toLowerCase().includes(userInput.value.trim().toLowerCase()))
-})
+    return orderedItems.value.filter((item) =>
+        item.toLowerCase().includes(userInput.value.trim().toLowerCase())
+    );
+});
 
 const selectItem = (item: string) => {
-  emit('update:model-value', item)
-}
+    emit('update:model-value', item);
+};
 </script>
 
 <style lang="scss" scoped>
 .card-list {
-  .list-title {
-    display: block;
-    background-color: transparent;
-    border: none;
-    width: 100%;
-    font-size: 0.75rem;
-    line-height: 1rem;
-    letter-spacing: 0.025em;
-    font-weight: 600;
-    display: flex;
-    gap: 0.25rem;
-    color: $color-gray-800;
-    margin: 0;
-    padding: $card-padding;
-    border-bottom: 1px solid $color-gray-500;
-
-    &:has(.order-icon) {
-      cursor: pointer;
-
-      &:hover .order-icon {
+    .list-title {
+        display: block;
+        background-color: transparent;
+        border: none;
+        width: 100%;
+        font-size: 0.75rem;
+        line-height: 1rem;
+        letter-spacing: 0.025em;
+        font-weight: 600;
+        display: flex;
+        gap: 0.25rem;
         color: $color-gray-800;
-      }
+        margin: 0;
+        padding: $card-padding;
+        border-bottom: 1px solid $color-gray-500;
+
+        &:has(.order-icon) {
+            cursor: pointer;
+
+            &:hover .order-icon {
+                color: $color-gray-800;
+            }
+        }
+
+        .order-icon {
+            color: $color-gray-700;
+
+            @include default-transition('color, transform');
+
+            &.flip {
+                transform: rotate(180deg);
+            }
+        }
     }
 
-    .order-icon {
-      color: $color-gray-700;
+    .search-row {
+        padding: 0.5rem;
 
-      @include default-transition('color, transform');
-
-      &.flip {
-        transform: rotate(180deg);
-      }
+        .search-input {
+            width: 18rem;
+            max-width: 100%;
+        }
     }
-  }
 
-  .search-row {
-    padding: 0.5rem;
-
-    .search-input {
-      width: 18rem;
-      max-width: 100%;
+    .list {
+        overflow: auto;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        min-height: 0;
     }
-  }
 
-  .list {
-    overflow: auto;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    min-height: 0;
-  }
-
-  .list-item {
-    &:not(:last-child) {
-      border-bottom: 1px solid $color-gray-400;
+    .list-item {
+        &:not(:last-child) {
+            border-bottom: 1px solid $color-gray-400;
+        }
     }
-  }
 
-  .list-item-button {
-    display: block;
-    width: 100%;
-    height: 3.5rem;
-    border: none;
-    background-color: transparent;
-    text-align: left;
-    padding: 0 $card-padding;
-    color: $color-gray-800;
-    font-family: inherit;
-    user-select: none;
+    .list-item-button {
+        display: block;
+        width: 100%;
+        height: 3.5rem;
+        border: none;
+        background-color: transparent;
+        text-align: left;
+        padding: 0 $card-padding;
+        color: $color-gray-800;
+        font-family: inherit;
+        user-select: none;
 
-    @include default-transition('color, background-color');
+        @include default-transition('color, background-color');
 
-    &.selectable {
-      cursor: pointer;
+        &.selectable {
+            cursor: pointer;
 
-      &:hover, &.hover {
-        background-color: $color-gray-300;
-      }
+            &:hover,
+            &.hover {
+                background-color: $color-gray-300;
+            }
 
-      &:active, &.active {
-        color: $color-accent;
-      }
+            &:active,
+            &.active {
+                color: $color-accent;
+            }
+        }
     }
-  }
 
-  .message {
-    font-size: 0.875rem;
-    line-height: 1.5rem;
-    color: $color-gray-700;
-    margin: $card-padding;
-    padding: 0;
-  }
+    .message {
+        font-size: 0.875rem;
+        line-height: 1.5rem;
+        color: $color-gray-700;
+        margin: $card-padding;
+        padding: 0;
+    }
 }
 </style>

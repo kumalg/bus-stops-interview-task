@@ -14,9 +14,9 @@
 </template>
 
 <script setup lang="ts">
-import { ROUTE_PATHS, ROUTE_PAGE_TITLES, ROUTE_KEYS } from '@/router/routes'
+import { ROUTE_PATHS, ROUTE_PAGE_TITLES, ROUTE_KEYS } from '@/router/routes';
 
-import BaseCard from '@/components/BaseCard.vue'
+import BaseCard from '@/components/BaseCard.vue';
 </script>
 
 <style lang="scss" scoped>
@@ -35,7 +35,7 @@ import BaseCard from '@/components/BaseCard.vue'
         line-height: 1.5rem;
         color: $color-gray-600;
         transition-property: border-bottom-color, color;
-        transition-duration: .2s;
+        transition-duration: 0.2s;
         transition-timing-function: ease;
 
         &:hover {
