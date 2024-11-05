@@ -1,13 +1,14 @@
 <template>
-  <div>
+  <BaseCard>
     Stops
     <ul>
       <li v-for="stop in stops" :key="stop">{{  stop }}</li>
     </ul>
-  </div>
+  </BaseCard>
 </template>
 
 <script setup lang="ts">
+import BaseCard from '@/components/BaseCard.vue';
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 

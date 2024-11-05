@@ -25,6 +25,8 @@ withDefaults(defineProps<{
 .card {
   background-color: $color-gray-0;
   border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
 
   &.dotted {
     border: 2px solid red;
@@ -37,6 +39,7 @@ withDefaults(defineProps<{
 
     .card-body {
       padding: $card-padding;
+      flex: 1;
     }
   }
 }
