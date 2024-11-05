@@ -20,17 +20,20 @@
       {{ subtitle }}
     </p>
 
-    <ul class="list">
-      <li
-        v-for="item in filteredItems"
-        :key="item"
-        class="list-item"
-      >
-        <button :tabindex="selectable ? 0 : -1" class="list-item-button" :class="{ selectable, active: selectable && modelValue === item }" type="button" @click="selectable && selectItem(item)">
-          {{ item }}
-        </button>
-      </li>
-    </ul>
+    
+    <transition name="fade" mode="out-in">
+      <ul :key="`items_${filteredItems.length}_${isReversed}`" class="list">
+        <li
+          v-for="item in filteredItems"
+          :key="item"
+          class="list-item"
+        >
+          <button :tabindex="selectable ? 0 : -1" class="list-item-button" :class="{ selectable, active: selectable && modelValue === item }" type="button" @click="selectable && selectItem(item)">
+            {{ item }}
+          </button>
+        </li>
+      </ul>
+    </transition>
   </BaseCard>
 </template>
 
