@@ -4,3 +4,5 @@ export type BusStop = {
   order: number,
   time: string
 }
+
+export type Order = 'asc' | 'desc'

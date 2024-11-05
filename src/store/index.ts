@@ -1,6 +1,5 @@
-import { toSortedTimes } from '@/assets/time'
+import { toSorted, toSortedTimes } from '@/assets/sort'
 import { BusStop } from '@/types'
-import { k } from 'vitest/dist/reporters-trlZlObr'
 import { createStore } from 'vuex'
 
 enum BusStopsFetchStatus {
@@ -35,18 +34,10 @@ export default createStore<State>({
   },
   getters: {
     lines(state) {
-      const lines = [...new Set(state.busStops.map(({ line }) => line))]
-
-      lines.sort((a, b) => a - b)
-
-      return lines
+      return toSorted(new Set(state.busStops.map(({ line }) => line)))
     },
     stops(state) {
-      const stops = [...new Set(state.busStops.map(({ stop }) => stop))]
-
-      stops.sort((a, b) => a > b ? 1 : -1)
-
-      return stops
+      return toSorted(new Set(state.busStops.map(({ stop }) => stop)))
     }
   },
   mutations: {
@@ -90,8 +81,10 @@ export default createStore<State>({
         return state.lineStops[line]
       }
 
-      const stops = [...new Set(state.busStops.filter(busStop => busStop.line === line).map(({ stop }) => stop))]
-      stops.sort((a, b) => a > b ? 1 : -1)
+      const stops = toSorted(new Set(state.busStops
+        .filter(busStop => busStop.line === line)
+        .map(({ stop }) => stop)
+      ))
 
       commit(Mutation.SetLineStops, { line, stops })
 
@@ -102,8 +95,10 @@ export default createStore<State>({
         return state.lineStopTimes.get(key)
       }
 
-      const unorderedTimes = [...new Set(state.busStops.filter(({ line, stop }) => line === key.line && stop === key.stop).map(({ time }) => time))]
-      const times = toSortedTimes(unorderedTimes)
+      const times = toSortedTimes(new Set(state.busStops
+        .filter(({ line, stop }) => line === key.line && stop === key.stop)
+        .map(({ time }) => time)
+      ))
 
       commit(Mutation.SetLineStopTimes, { key, times })
 

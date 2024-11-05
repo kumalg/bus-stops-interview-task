@@ -13,9 +13,9 @@
       message="Please select the bus line first"
     />
     <BaseCard v-else :title="`Bus Line: ${selectedLine}`">
-      Bus Stops
+      <p>Bus Stops <button @click="toggleStopsOrder()">X</button></p>
       <ul class="list">
-        <li v-for="stop in selectedLineStops" :key="stop" @click="selectLineStop(stop)">
+        <li v-for="stop in orderedStops" :key="stop" @click="selectLineStop(stop)">
           {{ stop }}
         </li>
       </ul>
@@ -35,19 +35,27 @@
 </template>
 
 <script setup lang="ts">
+import type { Order } from '@/types';
+
+import { computed,  ref } from 'vue';
+import { useStore } from 'vuex';
+
+import { toSorted } from '@/assets/sort';
+
 import BaseButton from '@/components/BaseButton.vue';
 import BaseCard from '@/components/BaseCard.vue'
 import BaseCardEmpty from '@/components/BaseCardEmpty.vue';
-import { computed,  ref } from 'vue';
-import { useStore } from 'vuex';
 
 const store = useStore()
 const lines = computed(() => store.getters.lines)
 
 const selectedLine = ref<null | number>(null)
 const selectedLineStops = ref<string[]>([])
+const selectedLineStopsOrder = ref<Order>('asc')
 const selectedLineStop = ref<null | string>(null)
 const selectedLineStopTimes = ref<string[]>([])
+
+const orderedStops = computed(() => toSorted(selectedLineStops.value, selectedLineStopsOrder.value))
 
 const selectLine = async (line: number) => {
   selectedLine.value = line
@@ -58,6 +66,10 @@ const selectLine = async (line: number) => {
 const selectLineStop = async (stop: string) => {
   selectedLineStop.value = stop
   selectedLineStopTimes.value = await store.dispatch('getTimesForLineStop', { line: selectedLine.value, stop })
+}
+
+const toggleStopsOrder = () => {
+  selectedLineStopsOrder.value = selectedLineStopsOrder.value === 'asc' ? 'desc' : 'asc'
 }
 </script>
 
