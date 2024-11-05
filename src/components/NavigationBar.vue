@@ -1,26 +1,28 @@
 <template>
-  <nav class="navigation-bar">
-      <RouterLink
-          v-for="route in ROUTE_KEYS"
-          :key="route"
-          :to="ROUTE_PATHS[route]"
-          class="navigation-item"
-      >
-          {{ ROUTE_PAGE_TITLES[route] }}
-      </RouterLink>
-  </nav>
+    <BaseCard :without-paddings="true">
+        <nav class="navigation-bar">
+            <RouterLink
+                v-for="route in ROUTE_KEYS"
+                :key="route"
+                :to="ROUTE_PATHS[route]"
+                class="navigation-item"
+            >
+                {{ ROUTE_PAGE_TITLES[route] }}
+            </RouterLink>
+        </nav>
+    </BaseCard>
 </template>
 
 <script setup lang="ts">
 import { ROUTE_PATHS, ROUTE_PAGE_TITLES, ROUTE_KEYS } from '@/router/routes'
+
+import BaseCard from '@/components/BaseCard.vue'
 </script>
 
 <style lang="scss" scoped>
 .navigation-bar {
-    background-color: $color-gray-0;
     padding: 0 1.5rem;
     height: 4rem;
-    border-radius: 0.25rem;
     display: flex;
 
     .navigation-item {

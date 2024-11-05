@@ -1,0 +1,7 @@
+@import './variables';
+
+@mixin default-transition($property: all) {
+  transition-duration: $transition-duration;
+  transition-timing-function: $transition-timing-function;
+  transition-property: #{$property};
+}

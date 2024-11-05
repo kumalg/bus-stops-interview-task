@@ -1,2 +1,52 @@
 @import 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap';
-@import "node_modules/bootstrap/scss/bootstrap";
+// @import "node_modules/bootstrap/scss/bootstrap";
+
+body {
+  background-color: $color-gray-1;
+  color: $color-gray-5;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+%heading {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+h1, .h1 {
+  @extend %heading;
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+h2, .h2 {
+  @extend %heading;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+h3, .h3 {
+  @extend %heading;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+// h4, .h4 {
+//   @extend %heading;
+//   font-size: 1.05rem;
+//   line-height: 1.4rem;
+// }
+
+// h5, .h5 {
+//   @extend %heading;
+//   font-size: 0.9rem;
+//   line-height: 1.2rem;
+// }
+
+// h6, .h6 {
+//   @extend %heading;
+//   font-size: 0.75rem;
+//   line-height: 1rem;
+// }
