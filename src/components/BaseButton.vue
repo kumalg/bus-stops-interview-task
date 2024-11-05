@@ -28,6 +28,7 @@ const classes = computed(() => {
   padding: 0 1rem;
   display: inline-flex;
   align-items: center;
+  font-weight: 500;
   font-size: 0.75rem;
   line-height: 1rem;
   user-select: none;
