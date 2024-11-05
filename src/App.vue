@@ -25,7 +25,7 @@ onBeforeMount(() => {
 
 <template>
     <div class="app">
-        <transition name="fade" mode="out-in">
+        <Transition name="fade" mode="out-in">
             <div v-if="status === BusStopsFetchStatus.FETCHED" class="app-container">
                 <MainHeader title="Timetable" class="main-header" />
 
@@ -44,7 +44,7 @@ onBeforeMount(() => {
                 Error
                 <BaseButton @click="fetchData()">Fetch again</BaseButton>
             </div>
-        </transition>
+        </Transition>
     </div>
 </template>
 

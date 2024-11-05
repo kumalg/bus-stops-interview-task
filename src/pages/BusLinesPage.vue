@@ -13,7 +13,7 @@
             </ul>
         </BaseCard>
 
-        <transition name="fade" mode="out-in">
+        <Transition name="fade" mode="out-in">
             <BaseCardEmpty v-if="!selectedLine" message="Please select the bus line first" />
             <CardList
                 v-else
@@ -26,9 +26,9 @@
                 :model-value="selectedLineStop"
                 @update:model-value="selectLineStop($event)"
             />
-        </transition>
+        </Transition>
 
-        <transition name="fade" mode="out-in">
+        <Transition name="fade" mode="out-in">
             <BaseCardEmpty
                 v-if="!selectedLine || !selectedLineStop"
                 :message="
@@ -44,7 +44,7 @@
                 :subtitle="'Time'"
                 :items="selectedLineStopTimes"
             />
-        </transition>
+        </Transition>
     </div>
 </template>
 

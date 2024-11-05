@@ -18,7 +18,7 @@
             {{ subtitle }}
         </p>
 
-        <transition name="fade" mode="out-in">
+        <Transition name="fade" mode="out-in">
             <ul
                 v-if="filteredItems.length"
                 :key="`items_${filteredItems.length}_${isReversed}`"
@@ -37,7 +37,7 @@
                 </li>
             </ul>
             <p v-else-if="items.length" class="message">No items found</p>
-        </transition>
+        </Transition>
     </BaseCard>
 </template>
 

@@ -22,9 +22,9 @@
                     stroke-linecap="round"
                 />
             </svg>
-            <transition name="fade" mode="out-in">
+            <Transition name="fade" mode="out-in">
                 <p v-if="message" class="message" :key="message">{{ message }}</p>
-            </transition>
+            </Transition>
         </BaseCard>
     </div>
 </template>
