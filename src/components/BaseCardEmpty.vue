@@ -1,6 +1,8 @@
 <template>
   <BaseCard class="empty-card">
-    <p v-if="message" class="message">{{ message }}</p>
+    <transition name="fade" mode="out-in">
+      <p v-if="message" class="message" :key="message">{{ message }}</p>
+    </transition>
   </BaseCard>
 </template>
 

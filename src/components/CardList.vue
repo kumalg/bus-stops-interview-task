@@ -136,6 +136,7 @@ const selectItem = (item: string) => {
     list-style: none;
     padding: 0;
     margin: 0;
+    min-height: 0;
   }
 
   .list-item {

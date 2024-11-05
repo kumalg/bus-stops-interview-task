@@ -4,6 +4,7 @@
     :subtitle="'Bus Stops'"
     :filterable="true"
     :reversible="true"
+    class="stops-page"
   />
 </template>
 
@@ -17,6 +18,8 @@ const store = useStore()
 const stops = computed(() => store.getters.stops)
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.stops-page {
+  max-height: 100%;
+}
 </style>

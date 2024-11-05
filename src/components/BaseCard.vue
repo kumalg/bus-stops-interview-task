@@ -27,6 +27,7 @@ withDefaults(defineProps<{
   border-radius: 0.25rem;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 
   &.dotted {
     border: 2px solid red;
@@ -34,6 +35,12 @@ withDefaults(defineProps<{
 
   .card-header {
     padding: $card-padding $card-padding 0.5rem $card-padding;
+  }
+
+  .card-body {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   &:not(.no-paddings) {

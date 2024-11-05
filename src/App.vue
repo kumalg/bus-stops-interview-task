@@ -21,22 +21,28 @@ onBeforeMount(() => {
 
 <template>
     <div class="app">
-        <div v-if="status === BusStopsFetchStatus.FETCHED" class="app-container">
-            <MainHeader title="Timetable" class="main-header" />
+        <transition name="fade" mode="out-in">
+            <div v-if="status === BusStopsFetchStatus.FETCHED" class="app-container">
+                <MainHeader title="Timetable" class="main-header" />
 
-            <NavigationBar />
+                <NavigationBar />
 
-            <main class="main-content">
-                <RouterView />
-            </main>
-        </div>
-        <div v-else-if="status === BusStopsFetchStatus.FETCHING">
-            Loading
-        </div>
-        <div v-else-if="status === BusStopsFetchStatus.ERROR" class="error">
-            Error
-            <BaseButton @click="fetchData()">Fetch again</BaseButton>
-        </div>
+                <main class="main-content">
+                    <router-view v-slot="{ Component }">
+                        <transition name="fade" mode="out-in">
+                            <component :is="Component" />
+                        </transition>
+                    </router-view>
+                </main>
+            </div>
+            <div v-else-if="status === BusStopsFetchStatus.FETCHING">
+                Loading
+            </div>
+            <div v-else-if="status === BusStopsFetchStatus.ERROR" class="error">
+                Error
+                <BaseButton @click="fetchData()">Fetch again</BaseButton>
+            </div>
+        </transition>
     </div>
 </template>
 
@@ -61,7 +67,6 @@ onBeforeMount(() => {
     .main-content {
         flex: 1;
         min-height: 0;
-        // margin-top: 1rem;
     }
 }
 </style>

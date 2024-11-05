@@ -8,33 +8,37 @@
       </ul> 
     </BaseCard>
     
-    <BaseCardEmpty
-      v-if="!selectedLine"
-      message="Please select the bus line first"
-    />
-    <CardList
-      v-else
-      :key="selectedLine"
-      :title="`Bus Line: ${selectedLine}`"
-      :subtitle="'Bus Stops'"
-      :items="selectedLineStops"
-      :reversible="true"
-      :selectable="true"
-      :model-value="selectedLineStop"
-      @update:model-value="selectLineStop($event)"
-    />
+    <transition name="fade" mode="out-in">
+      <BaseCardEmpty
+        v-if="!selectedLine"
+        message="Please select the bus line first"
+      />
+      <CardList
+        v-else
+        :key="selectedLine"
+        :title="`Bus Line: ${selectedLine}`"
+        :subtitle="'Bus Stops'"
+        :items="selectedLineStops"
+        :reversible="true"
+        :selectable="true"
+        :model-value="selectedLineStop"
+        @update:model-value="selectLineStop($event)"
+      />
+    </transition>
 
-    <BaseCardEmpty
-      v-if="!selectedLine || !selectedLineStop"
-      :message="!selectedLine ? 'Please select the bus line first' : 'Please select the bus stop first'"
-    />
-    <CardList
-      v-else
-      :key="selectedLine"
-      :title="`Bus Stop: ${selectedLineStop}`"
-      :subtitle="'Time'"
-      :items="selectedLineStopTimes"
-    />
+    <transition name="fade" mode="out-in">
+      <BaseCardEmpty
+        v-if="!selectedLine || !selectedLineStop"
+        :message="!selectedLine ? 'Please select the bus line first' : 'Please select the bus stop first'"
+      />
+      <CardList
+        v-else
+        :key="selectedLineStop"
+        :title="`Bus Stop: ${selectedLineStop}`"
+        :subtitle="'Time'"
+        :items="selectedLineStopTimes"
+      />
+    </transition>
   </div>
 </template>
 
