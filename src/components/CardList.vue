@@ -1,5 +1,6 @@
 <template>
   <BaseCard :title="title" :without-paddings="true" class="card-list">
+    <SearchInput v-if="filterable" v-model="userInput" />
     <p
       v-if="reversible"
       class="list-title"
@@ -17,7 +18,7 @@
 
     <ul class="list">
       <li
-        v-for="item in orderedItems"
+        v-for="item in filteredItems"
         :key="item"
         class="list-item"
       >
@@ -33,24 +34,28 @@
 import { computed, ref } from 'vue';
 import ArrowBottomIcon from './ArrowBottomIcon.vue';
 import BaseCard from './BaseCard.vue';
+import SearchInput from './SearchInput.vue';
 
 const emit = defineEmits<{
   (e: 'update:model-value', item: string): void
 }>()
 
 const props = withDefaults(defineProps<{
-  title: string,
-  subtitle: string,
   items: string[],
+  subtitle: string,
+  title?: string,
   reversible?: boolean,
   selectable?: boolean,
+  filterable?: boolean,
   modelValue?: string | null,
 }>(), {
+  title: '',
   reversible: false,
   selectable: false,
   modelValue: null
 })
 
+const userInput = ref('')
 const isReversed = ref(false)
 
 const reversedItem = computed(() => {
@@ -61,6 +66,14 @@ const reversedItem = computed(() => {
 
 const orderedItems = computed(() => {
   return isReversed.value ? reversedItem.value : props.items
+})
+
+const filteredItems = computed(() => {
+  if (!props.filterable || !userInput.value) {
+    return orderedItems.value
+  }
+
+  return orderedItems.value.filter(item => item.toLowerCase().includes(userInput.value.trim().toLowerCase()))
 })
 
 const reverseItems = () => {

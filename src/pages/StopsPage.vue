@@ -1,17 +1,17 @@
 <template>
-  <BaseCard>
-    Stops
-    <ul>
-      <li v-for="stop in stops" :key="stop">{{  stop }}</li>
-    </ul>
-  </BaseCard>
+  <CardList
+    :items="stops"
+    :subtitle="'Bus Stops'"
+    :filterable="true"
+    :reversible="true"
+  />
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 
-import BaseCard from '@/components/BaseCard.vue';
+import CardList from '@/components/CardList.vue';
 
 const store = useStore()
 const stops = computed(() => store.getters.stops)
