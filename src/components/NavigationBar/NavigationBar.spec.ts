@@ -4,10 +4,10 @@ import NavigationBar from './NavigationBar.vue';
 
 describe('NavigationBar', () => {
     const RouterLinkStub = {
-        template: '<a class="router-link-stub"><slot/></a>'
+        template: '<router-link-stub><slot/></router-link-stub>'
     };
     const BaseCardStub = {
-        template: '<div class="base-card-stub"><slot/></div>'
+        template: '<base-card-stub><slot/></base-card-stub>'
     };
 
     const NavigationBarFactory = (props: InstanceType<typeof NavigationBar>['$props'] = {}) => {
