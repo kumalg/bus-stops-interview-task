@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App renders proper html markup 1`] = `
+<div
+  class="app"
+>
+  <transition-stub
+    appear="false"
+    css="true"
+    mode="out-in"
+    name="fade"
+    persisted="false"
+  >
+    <!--v-if-->
+  </transition-stub>
+</div>
+`;
