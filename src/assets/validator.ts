@@ -11,7 +11,7 @@ const hasRequiredFields = (value: object): value is { [key in BusStopField]: unk
     return BUS_STOP_FIELDS.every((field) => keys.includes(field));
 };
 
-const validateBusStop = (value: unknown): value is BusStop => {
+export const validateBusStop = (value: unknown): value is BusStop => {
     if (typeof value !== 'object' || !value || !hasRequiredFields(value)) {
         return false;
     }
@@ -22,7 +22,7 @@ const validateBusStop = (value: unknown): value is BusStop => {
     if (typeof value.stop !== 'string') {
         return false;
     }
-    if (typeof value.order !== 'number') {
+    if (typeof value.order !== 'number' || value.order < 0) {
         return false;
     }
     if (typeof value.time !== 'string' || !value.time.match(TIME_REGEX)) {
