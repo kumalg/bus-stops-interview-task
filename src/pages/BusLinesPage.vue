@@ -7,8 +7,9 @@
                         type="button"
                         class="line-button"
                         :is-active="selectedLine === line"
-                        >{{ line }}</BaseButton
                     >
+                        {{ line }}
+                    </BaseButton>
                 </li>
             </ul>
         </BaseCard>
@@ -50,10 +51,10 @@
 
 <script setup lang="ts">
 import { computed, onBeforeMount, ref, watch } from 'vue';
-import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
 import { StoreAction } from '@/store/config';
+import { useStore } from '@/store';
 
 import BaseButton from '@/components/BaseButton/BaseButton.vue';
 import BaseCard from '@/components/BaseCard/BaseCard.vue';

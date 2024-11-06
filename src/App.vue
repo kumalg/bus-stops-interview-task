@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, onBeforeMount } from 'vue';
-import { useStore } from 'vuex';
 import { RouterView } from 'vue-router';
 
 import { StoreAction } from '@/store/config';
+import { useStore } from '@/store';
 
 import { BusStopsFetchStatus } from '@/types';
 
@@ -12,8 +12,7 @@ import MainHeader from '@/components/MainHeader/MainHeader.vue';
 import BaseButton from '@/components/BaseButton/BaseButton.vue';
 
 const store = useStore();
-
-const status = computed<BusStopsFetchStatus>(() => store.state.status);
+const status = computed(() => store.state.status);
 
 const fetchData = () => {
     store.dispatch(StoreAction.FetchBusStops);

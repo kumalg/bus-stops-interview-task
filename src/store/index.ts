@@ -1,6 +1,7 @@
 import type { BusStop } from '@/types';
 
-import { createStore } from 'vuex';
+import { createStore, useStore as baseUseStore, Store } from 'vuex';
+import { InjectionKey } from 'vue';
 
 import { toSorted, toSortedTimes } from '@/assets/sort';
 import { validateBusStops } from '@/assets/validator';
@@ -18,7 +19,9 @@ type State = {
     lineStopTimes: Map<{ line: BusStop['line']; stop: BusStop['stop'] }, BusStop['time'][]>;
 };
 
-export default createStore<State>({
+export const key: InjectionKey<Store<State>> = Symbol();
+
+export const store = createStore<State>({
     state: {
         busStops: [],
         status: BusStopsFetchStatus.UNFETCHED,
@@ -125,3 +128,7 @@ export default createStore<State>({
     },
     modules: {}
 });
+
+export const useStore = () => {
+    return baseUseStore(key);
+};
