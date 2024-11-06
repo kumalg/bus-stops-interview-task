@@ -21,12 +21,8 @@ export const store = createStore<StoreState>({
         lineStopTimes: new Map()
     },
     getters: {
-        lines(state) {
-            return toSorted(new Set(state.busStops.map(({ line }) => line)));
-        },
-        stops(state) {
-            return toSorted(new Set(state.busStops.map(({ stop }) => stop)));
-        }
+        lines: (state) => toSorted(new Set(state.busStops.map(({ line }) => line))),
+        stops: (state) => toSorted(new Set(state.busStops.map(({ stop }) => stop)))
     },
     mutations: {
         [StoreMutation.SetBusStops](state, value: BusStop[]) {
