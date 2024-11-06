@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StopsPage renders proper html markup 1`] = `
+<base-card-stub
+  class="card-list stops-page"
+  title=""
+  withoutpaddings="true"
+/>
+`;
