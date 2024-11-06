@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "api": "npx json-server --watch data.json",
-    "test": "jest"
+    "test:unit": "jest",
+    "test:update-snapshots": "jest --updateSnapshot"
   },
   "dependencies": {
     "axios": "^0.27.2",

@@ -14,6 +14,8 @@
 </template>
 
 <script setup lang="ts">
+import { RouterLink } from 'vue-router';
+
 import { ROUTE_PATHS, ROUTE_PAGE_TITLES, ROUTE_KEYS } from '@/router/routes';
 
 import BaseCard from '@/components/BaseCard/BaseCard.vue';
