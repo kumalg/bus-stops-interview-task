@@ -39,9 +39,11 @@ onBeforeMount(() => {
                     </RouterView>
                 </main>
             </div>
-            <div v-else-if="status === BusStopsFetchStatus.FETCHING">Loading</div>
-            <div v-else-if="status === BusStopsFetchStatus.ERROR" class="error">
-                Error
+            <div v-else-if="status === BusStopsFetchStatus.FETCHING" class="message-loading">
+                Loading data
+            </div>
+            <div v-else-if="status === BusStopsFetchStatus.ERROR" class="message-error">
+                Error occurred while loading data
                 <BaseButton @click="fetchData()">Fetch again</BaseButton>
             </div>
         </Transition>
@@ -68,6 +70,15 @@ onBeforeMount(() => {
     .main-content {
         flex: 1;
         min-height: 0;
+    }
+
+    .message-loading,
+    .message-error {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 1rem;
+        gap: 1rem;
     }
 
     @include desktop {
