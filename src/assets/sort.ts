@@ -1,6 +1,6 @@
 import type { Order } from '@/types';
 
-import { TIME_REGEX } from '@/assets/time';
+import { TIME_REGEX } from '@/configs/time';
 
 type ComparableItem = string | number | Date;
 

@@ -2,7 +2,7 @@ import type { BusStop } from '@/types';
 
 import { BusStopField } from '@/types';
 
-import { TIME_REGEX } from '@/assets/time';
+import { TIME_REGEX } from '@/configs/time';
 
 const BUS_STOP_FIELDS = Object.values(BusStopField);
 
