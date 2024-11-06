@@ -2,7 +2,7 @@ import type { Ref } from 'vue';
 
 import { computed } from 'vue';
 
-type Props = {
+export type UseFilteredListProps = {
     isReversed: Ref<boolean>;
     filterable: Ref<boolean>;
     userInput: Ref<string>;
@@ -11,7 +11,12 @@ type Props = {
 
 const normalizeValue = (value: string) => value.toLowerCase().trim();
 
-export const useFilteredList = ({ isReversed, filterable, userInput, items }: Props) => {
+export const useFilteredList = ({
+    isReversed,
+    filterable,
+    userInput,
+    items
+}: UseFilteredListProps) => {
     const reversedItems = computed(() => {
         const copy = [...items.value];
         copy.reverse();
