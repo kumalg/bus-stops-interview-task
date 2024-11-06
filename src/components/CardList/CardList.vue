@@ -8,7 +8,7 @@
             class="list-title"
             :class="{ 'has-items': filteredItems.length }"
             @click="isReversed = !isReversed"
-            :tabindex="reversible ? 0 : -1"
+            tabindex="0"
             type="button"
         >
             {{ subtitle }}

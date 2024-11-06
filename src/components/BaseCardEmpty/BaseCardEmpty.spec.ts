@@ -22,11 +22,6 @@ describe('BaseCardEmpty', () => {
         unobserve = jest.fn();
         disconnect = jest.fn();
 
-        // globalThis.ResizeObserver = jest.fn().mockImplementation(() => ({
-        //     observe,
-        //     unobserve,
-        //     disconnect
-        // }));
         globalThis.ResizeObserver = class MockedResizeObserver {
             constructor(cb: ResizeObserverCallback) {
                 setTimeout(() => {

@@ -52,8 +52,9 @@ const emitModelUpdate = debounce((value: string) => {
 
 const handleInput = (event: Event) => {
     const el = event.target as HTMLInputElement;
-    internalValue.value = el.value;
-    emitModelUpdate(el.value);
+    const value = el.value.trim();
+    internalValue.value = value;
+    emitModelUpdate(value);
 };
 
 const setFocus = (value: boolean) => {

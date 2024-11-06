@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardList renders proper html markup with only required props 1`] = `
+<div
+  class="card no-paddings card-list"
+>
+  <!--v-if-->
+  <div
+    class="card-body"
+  >
+    
+    <!--v-if-->
+    <p
+      class="list-title"
+    >
+      EXAMPLE_SUBTITLE
+    </p>
+    <transition-stub
+      appear="false"
+      css="true"
+      mode="out-in"
+      name="fade"
+      persisted="false"
+    >
+      <ul
+        class="list"
+      >
+        
+        <li
+          class="card-list-item list-item"
+        >
+          <button
+            class="button"
+            tabindex="-1"
+            type="button"
+          >
+            firstValue
+          </button>
+        </li>
+        <li
+          class="card-list-item list-item"
+        >
+          <button
+            class="button"
+            tabindex="-1"
+            type="button"
+          >
+            secondValue
+          </button>
+        </li>
+        <li
+          class="card-list-item list-item"
+        >
+          <button
+            class="button"
+            tabindex="-1"
+            type="button"
+          >
+            thirdValue
+          </button>
+        </li>
+        <li
+          class="card-list-item list-item"
+        >
+          <button
+            class="button"
+            tabindex="-1"
+            type="button"
+          >
+            differentName
+          </button>
+        </li>
+        
+      </ul>
+    </transition-stub>
+    
+  </div>
+</div>
+`;
+
+exports[`CardList renders proper html markup with opional props 1`] = `
+<div
+  class="card no-paddings card-list"
+>
+  <!--v-if-->
+  <div
+    class="card-body"
+  >
+    
+    <div
+      class="search-row"
+    >
+      <div
+        class="search-input"
+        modelvalue=""
+        search-input-stub=""
+      />
+    </div>
+    <button
+      class="list-title has-items"
+      tabindex="0"
+      type="button"
+    >
+      EXAMPLE_SUBTITLE 
+      <svg
+        arrow-bottom-icon-stub=""
+        class="order-icon"
+      />
+    </button>
+    <transition-stub
+      appear="false"
+      css="true"
+      mode="out-in"
+      name="fade"
+      persisted="false"
+    >
+      <ul
+        class="list"
+      >
+        
+        <li
+          class="card-list-item list-item"
+        >
+          <button
+            class="button selectable"
+            tabindex="0"
+            type="button"
+          >
+            firstValue
+          </button>
+        </li>
+        <li
+          class="card-list-item list-item"
+        >
+          <button
+            class="button selectable"
+            tabindex="0"
+            type="button"
+          >
+            secondValue
+          </button>
+        </li>
+        <li
+          class="card-list-item list-item"
+        >
+          <button
+            class="button selectable"
+            tabindex="0"
+            type="button"
+          >
+            thirdValue
+          </button>
+        </li>
+        <li
+          class="card-list-item list-item"
+        >
+          <button
+            class="button selectable"
+            tabindex="0"
+            type="button"
+          >
+            differentName
+          </button>
+        </li>
+        
+      </ul>
+    </transition-stub>
+    
+  </div>
+</div>
+`;
