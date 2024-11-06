@@ -1,10 +1,12 @@
 import { shallowMount } from '@vue/test-utils';
+import { createStore } from 'vuex';
+
+import { BusStopsFetchStatus } from '@/types';
+
+import { StoreAction, StoreState } from '@/store/config';
+import { key } from '@/store';
 
 import App from '@/App.vue';
-import { key } from '@/store';
-import { StoreAction, StoreState } from '@/store/config';
-import { BusStopsFetchStatus } from '@/types';
-import { createStore } from 'vuex';
 
 describe('App', () => {
     const fetchBusStopsMock = jest.fn();
