@@ -47,6 +47,7 @@ import BaseCard from '@/components/BaseCard/BaseCard.vue';
         &.router-link-active {
             border-bottom-color: $color-accent;
             color: $color-gray-800;
+            pointer-events: none;
         }
     }
 }
