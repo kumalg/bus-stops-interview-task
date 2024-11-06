@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchInput renders proper html markup 1`] = `
+<div
+  class="search-input"
+>
+  <label
+    class="labelled-container"
+  >
+    <span
+      class="placeholder"
+    >
+      Search
+    </span>
+    <input
+      class="input"
+      type="text"
+    />
+    <search-icon-stub
+      class="search-icon"
+    />
+  </label>
+</div>
+`;

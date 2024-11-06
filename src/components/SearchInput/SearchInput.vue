@@ -1,5 +1,5 @@
 <template>
-    <div :class="classes">
+    <div class="search-input" :class="additionalClasses">
         <label class="labelled-container">
             <span class="placeholder">{{ placeholder }}</span>
             <input
@@ -30,23 +30,25 @@ const props = withDefaults(
     defineProps<{
         modelValue: string;
         placeholder?: string;
+        debounce?: number;
     }>(),
     {
-        placeholder: 'Search'
+        placeholder: 'Search',
+        debounce: 250
     }
 );
 
 const focused = ref(false);
 const internalValue = ref(props.modelValue);
 
-const classes = computed(() => [
-    'search-input',
-    { focused: focused.value, filled: !!internalValue.value }
-]);
+const additionalClasses = computed(() => ({
+    focused: focused.value,
+    filled: !!internalValue.value
+}));
 
 const emitModelUpdate = debounce((value: string) => {
     emit('update:model-value', value);
-}, 250);
+}, props.debounce);
 
 const handleInput = (event: Event) => {
     const el = event.target as HTMLInputElement;

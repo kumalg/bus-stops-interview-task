@@ -47,7 +47,7 @@ import { computed, ref } from 'vue';
 import ArrowBottomIcon from '@/icons/ArrowBottomIcon.vue';
 
 import BaseCard from '@/components/BaseCard/BaseCard.vue';
-import SearchInput from '@/components/SearchInput.vue';
+import SearchInput from '@/components/SearchInput/SearchInput.vue';
 
 const emit = defineEmits<{
     (e: 'update:model-value', item: string): void;

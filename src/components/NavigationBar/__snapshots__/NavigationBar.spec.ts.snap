@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NavigationBar renders proper html markup 1`] = `
-<base-card-stub
+<div
+  base-card-stub=""
   without-paddings="true"
 >
   
@@ -9,24 +10,26 @@ exports[`NavigationBar renders proper html markup 1`] = `
     class="navigation-bar"
   >
     
-    <router-link-stub
+    <a
       class="navigation-item"
+      router-link-stub=""
       to="/"
     >
       
       Bus Lines
       
-    </router-link-stub>
-    <router-link-stub
+    </a>
+    <a
       class="navigation-item"
+      router-link-stub=""
       to="/stops"
     >
       
       Stops
       
-    </router-link-stub>
+    </a>
     
   </nav>
   
-</base-card-stub>
+</div>
 `;

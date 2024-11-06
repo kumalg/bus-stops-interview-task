@@ -64,24 +64,10 @@ describe('BaseCardEmpty', () => {
         });
 
         it('disconnect is called after removing component from DOM', async () => {
-            const wrapper = mount({
-                template: `<div><BaseCardEmpty v-if="showCard" /></div>`,
-                components: {
-                    BaseCardEmpty
-                },
-                data() {
-                    return {
-                        showCard: true
-                    };
-                }
-            });
+            const wrapper = BaseCardEmptyFactory();
 
             expect(disconnect).toHaveBeenCalledTimes(0);
-
-            wrapper.setData({ showCard: false });
-
-            await flushPromises();
-
+            wrapper.unmount();
             expect(disconnect).toHaveBeenCalledTimes(1);
         });
     });
