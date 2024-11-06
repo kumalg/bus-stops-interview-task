@@ -4,6 +4,9 @@ import BaseCardEmpty from './BaseCardEmpty.vue';
 
 const EXAMPLE_MESSAGE = 'EXAMPLE_MESSAGE';
 
+const EXAMPLE_RECT_HEIGHT = 400;
+const EXAMPLE_RECT_WIDTH = 600;
+
 describe('BaseCardEmpty', () => {
     const BaseCardEmptyFactory = (props: InstanceType<typeof BaseCardEmpty>['$props'] = {}) => {
         return mount(BaseCardEmpty, {
@@ -19,11 +22,32 @@ describe('BaseCardEmpty', () => {
         unobserve = jest.fn();
         disconnect = jest.fn();
 
-        globalThis.ResizeObserver = jest.fn().mockImplementation(() => ({
-            observe,
-            unobserve,
-            disconnect
-        }));
+        // globalThis.ResizeObserver = jest.fn().mockImplementation(() => ({
+        //     observe,
+        //     unobserve,
+        //     disconnect
+        // }));
+        globalThis.ResizeObserver = class MockedResizeObserver {
+            constructor(cb: ResizeObserverCallback) {
+                setTimeout(() => {
+                    cb(
+                        [
+                            {
+                                contentRect: {
+                                    height: EXAMPLE_RECT_HEIGHT,
+                                    width: EXAMPLE_RECT_WIDTH
+                                }
+                            }
+                        ] as ResizeObserverEntry[],
+                        this
+                    );
+                }, 150);
+            }
+
+            observe = observe;
+            unobserve = unobserve;
+            disconnect = disconnect;
+        };
     });
 
     it('renders proper html markup', () => {
@@ -60,5 +84,37 @@ describe('BaseCardEmpty', () => {
 
             expect(disconnect).toHaveBeenCalledTimes(1);
         });
+    });
+
+    it('set proper sizing to svg and rect elements from ResizeObserver', async () => {
+        globalThis.ResizeObserver = jest.fn().mockImplementation((cb) => {
+            cb([
+                {
+                    contentRect: {
+                        height: EXAMPLE_RECT_HEIGHT,
+                        width: EXAMPLE_RECT_WIDTH
+                    }
+                }
+            ] as ResizeObserverEntry[]);
+
+            return {
+                observe,
+                unobserve,
+                disconnect
+            };
+        });
+
+        const wrapper = BaseCardEmptyFactory({ message: EXAMPLE_MESSAGE });
+        const svgElement = wrapper.find('.svg').element as SVGElement;
+        const svgRectElement = wrapper.find('.svg-rect').element as SVGRectElement;
+
+        expect(svgElement.getAttribute('height')).toBe((EXAMPLE_RECT_HEIGHT + 2).toString());
+        expect(svgElement.getAttribute('width')).toBe((EXAMPLE_RECT_WIDTH + 2).toString());
+        expect(svgElement.getAttribute('view-box')).toBe(
+            `-2 -2 ${EXAMPLE_RECT_WIDTH + 2} ${EXAMPLE_RECT_HEIGHT + 2}`
+        );
+
+        expect(svgRectElement.getAttribute('height')).toBe(EXAMPLE_RECT_HEIGHT.toString());
+        expect(svgRectElement.getAttribute('width')).toBe(EXAMPLE_RECT_WIDTH.toString());
     });
 });

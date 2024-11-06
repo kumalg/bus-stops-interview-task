@@ -5,7 +5,7 @@
                 class="svg"
                 :width="svgSize.width"
                 :height="svgSize.height"
-                :view-box="`-2 -2 ${svgSize.height} ${svgSize.width}`"
+                :view-box="`-2 -2 ${svgSize.width} ${svgSize.height}`"
                 xmlns="http://www.w3.org/2000/svg"
             >
                 <rect
