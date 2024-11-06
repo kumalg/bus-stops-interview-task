@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseCardEmpty renders proper html markup 1`] = `
+<div
+  class="empty-card-container"
+>
+  <div
+    class="card empty-card"
+  >
+    <!--v-if-->
+    <div
+      class="card-body"
+    >
+      
+      <svg
+        class="svg"
+        height="2"
+        view-box="-2 -2 2 2"
+        width="2"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          class="svg-rect"
+          fill="transparent"
+          height="0"
+          rx="4"
+          ry="4"
+          stroke-dasharray="25 30"
+          stroke-linecap="round"
+          stroke-width="2px"
+          width="0"
+          x="1"
+          y="1"
+        />
+      </svg>
+      <transition-stub
+        appear="false"
+        css="true"
+        mode="out-in"
+        name="fade"
+        persisted="false"
+      >
+        <p
+          class="message"
+        >
+          EXAMPLE_MESSAGE
+        </p>
+      </transition-stub>
+      
+    </div>
+  </div>
+</div>
+`;

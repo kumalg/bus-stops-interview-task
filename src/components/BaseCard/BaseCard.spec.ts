@@ -1,4 +1,4 @@
-import { flushPromises, shallowMount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 
 import BaseCard from './BaseCard.vue';
 
@@ -23,7 +23,7 @@ describe('BaseCard', () => {
         expect(wrapper.element).toMatchSnapshot();
     });
 
-    it('renders slot conent inside card-body div', () => {
+    it('renders slot content inside card-body div', () => {
         const wrapper = BaseCardFactory();
 
         expect(wrapper.find('.card-body').text().trim()).toBe(EXAMPLE_CONTENT);
