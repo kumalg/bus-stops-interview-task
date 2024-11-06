@@ -8,7 +8,7 @@ import { StoreAction } from '@/store/config';
 
 import NavigationBar from '@/components/NavigationBar.vue';
 import MainHeader from '@/components/MainHeader/MainHeader.vue';
-import BaseButton from '@/components/BaseButton.vue';
+import BaseButton from '@/components/BaseButton/BaseButton.vue';
 
 const store = useStore();
 

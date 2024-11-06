@@ -12,8 +12,14 @@ describe('MainHeader', () => {
     };
 
     it('renders proper html markup', () => {
-        const wrapper = MainHeaderFactory({ title: 'EXAMPLE_TITLE' });
+        const wrapper = MainHeaderFactory({ title: EXAMPLE_TITLE });
 
         expect(wrapper.element).toMatchSnapshot();
+    });
+
+    it('shows proper title', () => {
+        const wrapper = MainHeaderFactory({ title: EXAMPLE_TITLE });
+
+        expect(wrapper.find('.main-header-title').text().trim()).toBe(EXAMPLE_TITLE);
     });
 });

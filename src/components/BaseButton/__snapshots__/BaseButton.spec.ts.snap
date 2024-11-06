@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseButton renders proper html markup 1`] = `
+<button
+  class="base-button theme-primary"
+>
+  
+  EXAMPLE_NAME
+  
+</button>
+`;

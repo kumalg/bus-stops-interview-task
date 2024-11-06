@@ -55,7 +55,7 @@ import { useRouter } from 'vue-router';
 
 import { StoreAction } from '@/store/config';
 
-import BaseButton from '@/components/BaseButton.vue';
+import BaseButton from '@/components/BaseButton/BaseButton.vue';
 import BaseCard from '@/components/BaseCard.vue';
 import BaseCardEmpty from '@/components/BaseCardEmpty.vue';
 import CardList from '@/components/CardList.vue';
