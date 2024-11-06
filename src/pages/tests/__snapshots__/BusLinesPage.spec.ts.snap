@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BusLinesPage renders proper html markup 1`] = `
+<div
+  class="bus-lines-page"
+>
+  <div
+    class="base-card-stub bus-lines-card"
+    title="Select Bus Line"
+  >
+    
+    <ul
+      class="bus-lines-list"
+    >
+      
+      <li>
+        <button
+          class="base-button-stub line-button"
+          is-active="false"
+          type="button"
+        >
+          
+          101
+          
+        </button>
+      </li>
+      <li>
+        <button
+          class="base-button-stub line-button"
+          is-active="false"
+          type="button"
+        >
+          
+          102
+          
+        </button>
+      </li>
+      <li>
+        <button
+          class="base-button-stub line-button"
+          is-active="false"
+          type="button"
+        >
+          
+          103
+          
+        </button>
+      </li>
+      
+    </ul>
+    
+  </div>
+  <transition-stub
+    appear="false"
+    css="true"
+    mode="out-in"
+    name="fade"
+    persisted="false"
+  >
+    <div
+      class="base-card-empty-stub bus-stops-empty-card"
+    >
+      Please select the bus line first
+    </div>
+  </transition-stub>
+  <transition-stub
+    appear="false"
+    css="true"
+    mode="out-in"
+    name="fade"
+    persisted="false"
+  >
+    <div
+      class="base-card-empty-stub bus-times-empty-card"
+    >
+      Please select the bus line first
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`BusLinesPage renders proper html markup when line and stop selected 1`] = `
+<div
+  class="bus-lines-page"
+>
+  <div
+    class="base-card-stub bus-lines-card"
+    title="Select Bus Line"
+  >
+    
+    <ul
+      class="bus-lines-list"
+    >
+      
+      <li>
+        <button
+          class="base-button-stub line-button"
+          is-active="true"
+          type="button"
+        >
+          
+          101
+          
+        </button>
+      </li>
+      <li>
+        <button
+          class="base-button-stub line-button"
+          is-active="false"
+          type="button"
+        >
+          
+          102
+          
+        </button>
+      </li>
+      <li>
+        <button
+          class="base-button-stub line-button"
+          is-active="false"
+          type="button"
+        >
+          
+          103
+          
+        </button>
+      </li>
+      
+    </ul>
+    
+  </div>
+  <transition-stub
+    appear="false"
+    css="true"
+    mode="out-in"
+    name="fade"
+    persisted="false"
+  >
+    <div
+      class="card-list-stub bus-stops-card"
+      items="stop1,stop2,stop3"
+      model-value="stop1"
+      reversible="true"
+      selectable="true"
+      subtitle="Bus Stops"
+      title="Bus Line: 101"
+    />
+  </transition-stub>
+  <transition-stub
+    appear="false"
+    css="true"
+    mode="out-in"
+    name="fade"
+    persisted="false"
+  >
+    <div
+      class="card-list-stub bus-times-card"
+      subtitle="Time"
+      title="Bus Stop: stop1"
+    />
+  </transition-stub>
+</div>
+`;

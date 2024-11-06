@@ -1,4 +1,5 @@
 import type { BusStop } from '@/types';
+import type { StoreState } from '@/store/config';
 
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
 import { InjectionKey } from 'vue';
@@ -10,18 +11,9 @@ import { StoreAction, StoreMutation } from '@/store/config';
 
 import { BusStopsFetchStatus } from '@/types';
 
-type State = {
-    busStops: BusStop[];
-    status: BusStopsFetchStatus;
-    lineStops: {
-        [key in number]: BusStop['stop'][];
-    };
-    lineStopTimes: Map<{ line: BusStop['line']; stop: BusStop['stop'] }, BusStop['time'][]>;
-};
+export const key: InjectionKey<Store<StoreState>> = Symbol();
 
-export const key: InjectionKey<Store<State>> = Symbol();
-
-export const store = createStore<State>({
+export const store = createStore<StoreState>({
     state: {
         busStops: [],
         status: BusStopsFetchStatus.UNFETCHED,

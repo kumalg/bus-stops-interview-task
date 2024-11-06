@@ -1,3 +1,5 @@
+import type { BusStop, BusStopsFetchStatus } from '@/types';
+
 export enum StoreMutation {
     SetBusStops = 'SET_BUS_STOPS',
     SetStatus = 'SET_STATUS',
@@ -10,3 +12,12 @@ export enum StoreAction {
     GetLineStops = 'getLineStops',
     GetTimesForLineStop = 'getTimesForLineStop'
 }
+
+export type StoreState = {
+    busStops: BusStop[];
+    status: BusStopsFetchStatus;
+    lineStops: {
+        [key in number]: BusStop['stop'][];
+    };
+    lineStopTimes: Map<{ line: BusStop['line']; stop: BusStop['stop'] }, BusStop['time'][]>;
+};

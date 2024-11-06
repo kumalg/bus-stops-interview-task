@@ -1,6 +1,6 @@
 <template>
     <div class="bus-lines-page">
-        <BaseCard class="bus-line-select-card" title="Select Bus Line">
+        <BaseCard class="bus-lines-card" title="Select Bus Line">
             <ul class="bus-lines-list">
                 <li v-for="line in lines" :key="line" @click="selectLine(line)">
                     <BaseButton
@@ -15,7 +15,11 @@
         </BaseCard>
 
         <Transition name="fade" mode="out-in">
-            <BaseCardEmpty v-if="!selectedLine" message="Please select the bus line first" />
+            <BaseCardEmpty
+                v-if="!selectedLine"
+                message="Please select the bus line first"
+                class="bus-stops-empty-card"
+            />
             <CardList
                 v-else
                 :key="selectedLine"
@@ -25,6 +29,7 @@
                 :reversible="true"
                 :selectable="true"
                 :model-value="selectedLineStop"
+                class="bus-stops-card"
                 @update:model-value="selectLineStop($event)"
             />
         </Transition>
@@ -37,6 +42,7 @@
                         ? 'Please select the bus line first'
                         : 'Please select the bus stop first'
                 "
+                class="bus-times-empty-card"
             />
             <CardList
                 v-else
@@ -44,6 +50,7 @@
                 :title="`Bus Stop: ${selectedLineStop}`"
                 :subtitle="'Time'"
                 :items="selectedLineStopTimes"
+                class="bus-times-card"
             />
         </Transition>
     </div>
@@ -162,7 +169,7 @@ watch(
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: auto 1fr;
 
-        .bus-line-select-card {
+        .bus-lines-card {
             grid-column: 1 / span 2;
         }
     }
