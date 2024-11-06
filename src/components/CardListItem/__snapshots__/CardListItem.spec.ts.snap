@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardListItem renders proper html markup 1`] = `
+<li
+  class="card-list-item"
+>
+  <button
+    class="button selectable"
+    tabindex="0"
+    type="button"
+  >
+    example item
+  </button>
+</li>
+`;
