@@ -7,6 +7,7 @@ import { StoreAction, StoreState } from '@/store/config';
 import { key } from '@/store';
 
 import App from '@/App.vue';
+import MainHeader from '@/components/MainHeader/MainHeader.vue';
 
 describe('App', () => {
     const fetchBusStopsMock = jest.fn();
@@ -44,9 +45,19 @@ describe('App', () => {
     });
 
     it('renders proper html markup', () => {
-        const wrapper = AppFactory();
+        const wrapper = AppFactory({
+            status: BusStopsFetchStatus.FETCHED
+        });
 
         expect(wrapper.element).toMatchSnapshot();
+    });
+
+    it('renders Timetable title', () => {
+        const wrapper = AppFactory({
+            status: BusStopsFetchStatus.FETCHED
+        });
+
+        expect(wrapper.findComponent(MainHeader).props()['title']).toBe('Timetable');
     });
 
     it('fetch data function has been called', () => {

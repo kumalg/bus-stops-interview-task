@@ -11,7 +11,22 @@ exports[`App renders proper html markup 1`] = `
     name="fade"
     persisted="false"
   >
-    <!--v-if-->
+    <div
+      class="app-container"
+    >
+      <main-header-stub
+        class="main-header"
+        title="Timetable"
+      />
+      <navigation-bar-stub />
+      <main
+        class="main-content"
+      >
+        <router-view-stub
+          name="default"
+        />
+      </main>
+    </div>
   </transition-stub>
 </div>
 `;
