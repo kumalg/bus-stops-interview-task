@@ -1,4 +1,6 @@
-import { computed, Ref } from 'vue';
+import type { Ref } from 'vue';
+
+import { computed } from 'vue';
 
 type Props = {
     isReversed: Ref<boolean>;
