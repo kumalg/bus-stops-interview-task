@@ -32,7 +32,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
-import BaseCard from '@/components/BaseCard.vue';
+import BaseCard from '@/components/BaseCard/BaseCard.vue';
 
 withDefaults(
     defineProps<{

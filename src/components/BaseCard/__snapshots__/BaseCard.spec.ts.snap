@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseCard renders proper html markup 1`] = `
+<div
+  class="card"
+>
+  <div
+    class="card-header"
+  >
+    <h2>
+      TITLE
+    </h2>
+  </div>
+  <div
+    class="card-body"
+  >
+    
+    EXAMPLE_CONTENT
+    
+  </div>
+</div>
+`;

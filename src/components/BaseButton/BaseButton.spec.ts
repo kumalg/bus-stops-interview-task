@@ -6,8 +6,8 @@ const EXAMPLE_NAME = 'EXAMPLE_NAME';
 
 describe('BaseButton', () => {
     const BaseButtonFactory = (
-        props: InstanceType<typeof BaseButton>['$props'],
-        slotContent: string
+        props: InstanceType<typeof BaseButton>['$props'] = {},
+        slotContent: string = EXAMPLE_NAME
     ) => {
         return shallowMount(BaseButton, {
             props,
@@ -18,13 +18,13 @@ describe('BaseButton', () => {
     };
 
     it('renders proper html markup', () => {
-        const wrapper = BaseButtonFactory({}, EXAMPLE_NAME);
+        const wrapper = BaseButtonFactory();
 
         expect(wrapper.element).toMatchSnapshot();
     });
 
     it('shows slot text', () => {
-        const wrapper = BaseButtonFactory({}, EXAMPLE_NAME);
+        const wrapper = BaseButtonFactory();
 
         expect(wrapper.text().trim()).toBe(EXAMPLE_NAME);
     });
@@ -37,19 +37,19 @@ describe('BaseButton', () => {
     });
 
     it('have theme primary class when no theme prop provided', () => {
-        const wrapper = BaseButtonFactory({}, EXAMPLE_NAME);
+        const wrapper = BaseButtonFactory();
 
         expect(wrapper.classes().includes('theme-primary')).toBe(true);
     });
 
     it('have theme primary class when theme prop is provided', () => {
-        const wrapper = BaseButtonFactory({ theme: 'primary' }, EXAMPLE_NAME);
+        const wrapper = BaseButtonFactory({ theme: 'primary' });
 
         expect(wrapper.classes().includes('theme-primary')).toBe(true);
     });
 
     it('have active class when isActive is provided', async () => {
-        const wrapper = BaseButtonFactory({ isActive: true }, EXAMPLE_NAME);
+        const wrapper = BaseButtonFactory({ isActive: true });
 
         expect(wrapper.classes().includes('active')).toBe(true);
 

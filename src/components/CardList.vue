@@ -46,7 +46,7 @@ import { computed, ref } from 'vue';
 
 import ArrowBottomIcon from '@/icons/ArrowBottomIcon.vue';
 
-import BaseCard from '@/components/BaseCard.vue';
+import BaseCard from '@/components/BaseCard/BaseCard.vue';
 import SearchInput from '@/components/SearchInput.vue';
 
 const emit = defineEmits<{

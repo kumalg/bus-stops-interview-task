@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { ROUTE_PATHS, ROUTE_PAGE_TITLES, ROUTE_KEYS } from '@/router/routes';
 
-import BaseCard from '@/components/BaseCard.vue';
+import BaseCard from '@/components/BaseCard/BaseCard.vue';
 </script>
 
 <style lang="scss" scoped>
