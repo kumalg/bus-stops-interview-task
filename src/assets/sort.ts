@@ -1,5 +1,7 @@
 import type { Order } from '@/types';
 
+import { TIME_REGEX } from '@/assets/time';
+
 type ComparableItem = string | number | Date;
 
 export const compareItems = (a: ComparableItem, b: ComparableItem, asc = true) => {
@@ -15,7 +17,6 @@ export const compareItems = (a: ComparableItem, b: ComparableItem, asc = true) =
     return 0;
 };
 
-const TIME_REGEX = /^\d{1,2}:\d{2}$/;
 const timeErrorMessage = (value: string) => `value ${value} is in incorrect format, ex. 21:37`;
 
 export const toSortedTimes = (list: string[] | Set<string>, order: Order = 'asc') => {

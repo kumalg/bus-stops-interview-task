@@ -3,8 +3,9 @@ import type { BusStop } from '@/types';
 import { createStore } from 'vuex';
 
 import { toSorted, toSortedTimes } from '@/assets/sort';
+import { validateBusStops } from '@/assets/validator';
 
-import { StoreAction, StoreMutation } from './config';
+import { StoreAction, StoreMutation } from '@/store/config';
 
 export enum BusStopsFetchStatus {
     UNFETCHED = 'UNFETCHED',
@@ -76,8 +77,13 @@ export default createStore<State>({
                 }
 
                 const json = await response.json();
-                commit(StoreMutation.SetBusStops, json);
-                commit(StoreMutation.SetStatus, BusStopsFetchStatus.FETCHED);
+
+                if (!validateBusStops(json)) {
+                    commit(StoreMutation.SetStatus, BusStopsFetchStatus.ERROR);
+                } else {
+                    commit(StoreMutation.SetBusStops, json);
+                    commit(StoreMutation.SetStatus, BusStopsFetchStatus.FETCHED);
+                }
             } catch {
                 commit(StoreMutation.SetStatus, BusStopsFetchStatus.ERROR);
             }
@@ -104,13 +110,18 @@ export default createStore<State>({
                 return state.lineStopTimes.get(key);
             }
 
-            const times = toSortedTimes(
-                new Set(
-                    state.busStops
-                        .filter(({ line, stop }) => line === key.line && stop === key.stop)
-                        .map(({ time }) => time)
-                )
-            );
+            let times;
+            try {
+                times = toSortedTimes(
+                    new Set(
+                        state.busStops
+                            .filter(({ line, stop }) => line === key.line && stop === key.stop)
+                            .map(({ time }) => time)
+                    )
+                );
+            } catch {
+                return [];
+            }
 
             commit(StoreMutation.SetLineStopTimes, { key, times });
 
