@@ -24,17 +24,15 @@
                 :key="`items_${filteredItems.length}_${isReversed}`"
                 class="list"
             >
-                <li v-for="item in filteredItems" :key="item" class="list-item">
-                    <button
-                        :tabindex="selectable ? 0 : -1"
-                        class="list-item-button"
-                        :class="{ selectable, active: selectable && modelValue === item }"
-                        type="button"
-                        @click="selectable && selectItem(item)"
-                    >
-                        {{ item }}
-                    </button>
-                </li>
+                <CardListItem
+                    v-for="item in filteredItems"
+                    :key="item"
+                    :item="item"
+                    :selectable="selectable"
+                    :selectedItem="modelValue"
+                    @select-item="selectItem(item)"
+                    class="list-item"
+                />
             </ul>
             <p v-else-if="items.length" class="message">No items found</p>
         </Transition>
@@ -42,12 +40,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { ref, toRef } from 'vue';
 
 import ArrowBottomIcon from '@/icons/ArrowBottomIcon.vue';
 
+import { useFilteredList } from '@/composables/useFilteredList';
+
 import BaseCard from '@/components/BaseCard/BaseCard.vue';
 import SearchInput from '@/components/SearchInput/SearchInput.vue';
+import CardListItem from '@/components/CardListItem.vue';
 
 const emit = defineEmits<{
     (e: 'update:model-value', item: string): void;
@@ -67,6 +68,7 @@ const props = withDefaults(
         title: '',
         reversible: false,
         selectable: false,
+        filterable: false,
         modelValue: null
     }
 );
@@ -74,24 +76,11 @@ const props = withDefaults(
 const userInput = ref('');
 const isReversed = ref(false);
 
-const reversedItem = computed(() => {
-    const copy = [...props.items];
-    copy.reverse();
-    return copy;
-});
-
-const orderedItems = computed(() => {
-    return isReversed.value ? reversedItem.value : props.items;
-});
-
-const filteredItems = computed(() => {
-    if (!props.filterable || !userInput.value) {
-        return orderedItems.value;
-    }
-
-    return orderedItems.value.filter((item) =>
-        item.toLowerCase().includes(userInput.value.trim().toLowerCase())
-    );
+const { filteredItems } = useFilteredList({
+    isReversed,
+    userInput,
+    filterable: toRef(props, 'filterable'),
+    items: toRef(props, 'items')
 });
 
 const selectItem = (item: string) => {
@@ -156,35 +145,6 @@ const selectItem = (item: string) => {
     .list-item {
         &:not(:last-child) {
             border-bottom: 1px solid $color-gray-400;
-        }
-    }
-
-    .list-item-button {
-        display: block;
-        width: 100%;
-        height: 3.5rem;
-        border: none;
-        background-color: transparent;
-        text-align: left;
-        padding: 0 $card-padding;
-        color: $color-gray-800;
-        font-family: inherit;
-        user-select: none;
-
-        @include default-transition('color, background-color');
-
-        &.selectable {
-            cursor: pointer;
-
-            &:hover,
-            &.hover {
-                background-color: $color-gray-300;
-            }
-
-            &:active,
-            &.active {
-                color: $color-accent;
-            }
         }
     }
 
