@@ -3,8 +3,9 @@ import { computed, onBeforeMount } from 'vue';
 import { useStore } from 'vuex';
 import { RouterView } from 'vue-router';
 
-import { BusStopsFetchStatus } from '@/store';
 import { StoreAction } from '@/store/config';
+
+import { BusStopsFetchStatus } from '@/types';
 
 import NavigationBar from '@/components/NavigationBar/NavigationBar.vue';
 import MainHeader from '@/components/MainHeader/MainHeader.vue';

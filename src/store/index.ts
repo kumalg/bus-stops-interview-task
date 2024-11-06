@@ -7,12 +7,7 @@ import { validateBusStops } from '@/assets/validator';
 
 import { StoreAction, StoreMutation } from '@/store/config';
 
-export enum BusStopsFetchStatus {
-    UNFETCHED = 'UNFETCHED',
-    FETCHING = 'FETCHING',
-    FETCHED = 'FETCHED',
-    ERROR = 'ERROR'
-}
+import { BusStopsFetchStatus } from '@/types';
 
 type State = {
     busStops: BusStop[];
