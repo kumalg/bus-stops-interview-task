@@ -1,28 +1,3 @@
-<script setup lang="ts">
-import { computed, onBeforeMount } from 'vue';
-import { RouterView } from 'vue-router';
-
-import { StoreAction } from '@/store/config';
-import { useStore } from '@/store';
-
-import { BusStopsFetchStatus } from '@/types';
-
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue';
-import MainHeader from '@/components/MainHeader/MainHeader.vue';
-import BaseButton from '@/components/BaseButton/BaseButton.vue';
-
-const store = useStore();
-const status = computed(() => store.state.status);
-
-const fetchData = () => {
-    store.dispatch(StoreAction.FetchBusStops);
-};
-
-onBeforeMount(() => {
-    fetchData();
-});
-</script>
-
 <template>
     <div class="app">
         <Transition name="fade" mode="out-in">
@@ -49,6 +24,31 @@ onBeforeMount(() => {
         </Transition>
     </div>
 </template>
+
+<script setup lang="ts">
+import { computed, onBeforeMount } from 'vue';
+import { RouterView } from 'vue-router';
+
+import { StoreAction } from '@/store/config';
+import { useStore } from '@/store';
+
+import { BusStopsFetchStatus } from '@/types';
+
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue';
+import MainHeader from '@/components/MainHeader/MainHeader.vue';
+import BaseButton from '@/components/BaseButton/BaseButton.vue';
+
+const store = useStore();
+const status = computed(() => store.state.status);
+
+const fetchData = () => {
+    store.dispatch(StoreAction.FetchBusStops);
+};
+
+onBeforeMount(() => {
+    fetchData();
+});
+</script>
 
 <style lang="scss" scoped>
 .app {
