@@ -50,7 +50,6 @@ onBeforeMount(() => {
 
 <style lang="scss" scoped>
 .app {
-    height: 100vh;
     padding: 2.5rem 2rem;
 
     .app-container {
@@ -69,6 +68,10 @@ onBeforeMount(() => {
     .main-content {
         flex: 1;
         min-height: 0;
+    }
+
+    @include desktop {
+        height: 100vh;
     }
 }
 </style>

@@ -38,12 +38,12 @@ withDefaults(
         min-height: 0;
         display: flex;
         flex-direction: column;
+        flex: 1;
     }
 
     &:not(.no-paddings) {
         .card-body {
             padding: $card-padding;
-            flex: 1;
         }
     }
 }

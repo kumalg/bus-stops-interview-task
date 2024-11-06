@@ -137,14 +137,10 @@ watch(
 <style lang="scss" scoped>
 .bus-lines-page {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 50vh 50vh;
     gap: 1rem;
     height: 100%;
-
-    .bus-line-select-card {
-        grid-column: 1 / span 2;
-    }
 
     .bus-lines-list {
         list-style: none;
@@ -159,6 +155,15 @@ watch(
         min-width: 3.375rem;
         text-align: center;
         justify-content: center;
+    }
+
+    @include desktop {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto 1fr;
+
+        .bus-line-select-card {
+            grid-column: 1 / span 2;
+        }
     }
 }
 </style>
