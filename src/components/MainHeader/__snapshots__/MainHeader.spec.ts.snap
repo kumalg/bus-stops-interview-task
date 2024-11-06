@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MainHeader renders proper html markup 1`] = `
+<header
+  class="main-header"
+>
+  <h1
+    class="main-header-title"
+  >
+    EXAMPLE_TITLE
+  </h1>
+</header>
+`;

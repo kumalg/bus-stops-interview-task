@@ -7,7 +7,7 @@ import { BusStopsFetchStatus } from '@/store';
 import { StoreAction } from '@/store/config';
 
 import NavigationBar from '@/components/NavigationBar.vue';
-import MainHeader from '@/components/MainHeader.vue';
+import MainHeader from '@/components/MainHeader/MainHeader.vue';
 import BaseButton from '@/components/BaseButton.vue';
 
 const store = useStore();
