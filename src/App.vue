@@ -83,6 +83,7 @@ onBeforeMount(() => {
 
     @include desktop {
         height: 100vh;
+        min-height: 640px;
     }
 }
 </style>
