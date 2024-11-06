@@ -48,7 +48,7 @@ import { useFilteredList } from '@/composables/useFilteredList';
 
 import BaseCard from '@/components/BaseCard/BaseCard.vue';
 import SearchInput from '@/components/SearchInput/SearchInput.vue';
-import CardListItem from '@/components/CardListItem.vue';
+import CardListItem from '@/components/CardListItem/CardListItem.vue';
 
 const emit = defineEmits<{
     (e: 'update:model-value', item: string): void;

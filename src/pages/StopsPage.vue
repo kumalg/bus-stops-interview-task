@@ -13,7 +13,7 @@ import { computed } from 'vue';
 
 import { useStore } from '@/store';
 
-import CardList from '@/components/CardList.vue';
+import CardList from '@/components/CardList/CardList.vue';
 
 const store = useStore();
 const stops = computed(() => store.getters.stops);

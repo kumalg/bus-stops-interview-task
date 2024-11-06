@@ -59,7 +59,7 @@ import { useStore } from '@/store';
 import BaseButton from '@/components/BaseButton/BaseButton.vue';
 import BaseCard from '@/components/BaseCard/BaseCard.vue';
 import BaseCardEmpty from '@/components/BaseCardEmpty/BaseCardEmpty.vue';
-import CardList from '@/components/CardList.vue';
+import CardList from '@/components/CardList/CardList.vue';
 
 const router = useRouter();
 const store = useStore();
