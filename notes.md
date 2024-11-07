@@ -1,4 +1,6 @@
-1. In TypeScript 4.5.5 this is incorrect:
+1. I haven't changed dependency versions, but replaced vitest with jest due to possible mismatches between webpack+babel and vite in same project.
+
+2. In TypeScript 4.5.5 this is incorrect:
 
 ```ts
 const validate = (value: unknown) => {
@@ -16,6 +18,6 @@ const validate = (value: unknown) => {
 
 so I was forced to do some workaround here in [validateBusStop](/src/assets/validator.ts)
 
-2. This repo build app with Webpack (which is no longer recommended since Vite is the new default), but has Vitest installed, I change that to Jest to avoid incompatibility issues - best way would be to upgrade to Vite & Vitest, but I wasn't sure if that would meet the requirements.
+3. This repo build app with Webpack (which is no longer recommended since Vite is the new default), but has Vitest installed, I change that to Jest to avoid incompatibility issues - best way would be to upgrade to Vite & Vitest, but I wasn't sure if that would meet the requirements.
 
-3. Vuex is deprecated and Pinia is a new standard in Vue 3. Vuex is not great with TypeScript in some cases, like it doesn't know what actions or getters are available when using `useStore()` composable. But again - I wasn't sure if changing to Pinia would meet the requirements.
+4. Vuex is deprecated and Pinia is a new standard in Vue 3. Vuex is not great with TypeScript in some cases, like it doesn't know what actions or getters are available when using `useStore()` composable. But again - I wasn't sure if changing to Pinia would meet the requirements.
