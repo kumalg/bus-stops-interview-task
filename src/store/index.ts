@@ -113,8 +113,7 @@ export const store = createStore<StoreState>({
 
             return times;
         }
-    },
-    modules: {}
+    }
 });
 
 export const useStore = () => {
