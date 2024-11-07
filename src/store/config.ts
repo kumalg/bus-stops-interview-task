@@ -13,11 +13,20 @@ export enum StoreAction {
     GetTimesForLineStop = 'getTimesForLineStop'
 }
 
+export type LineStopsKey = BusStop['line'];
+export type LineStopsValue = BusStop['stop'][];
+
+export type LineStopTimesKey = {
+    line: BusStop['line'];
+    stop: BusStop['stop'];
+};
+export type LineStopTimesValue = BusStop['time'][];
+
 export type StoreState = {
     busStops: BusStop[];
     status: BusStopsFetchStatus;
     lineStops: {
-        [key in number]: BusStop['stop'][];
+        [key in LineStopsKey]: LineStopsValue;
     };
-    lineStopTimes: Map<{ line: BusStop['line']; stop: BusStop['stop'] }, BusStop['time'][]>;
+    lineStopTimes: Map<LineStopTimesKey, LineStopTimesValue>;
 };

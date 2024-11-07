@@ -1,5 +1,11 @@
 import type { BusStop } from '@/types';
-import type { StoreState } from '@/store/config';
+import type {
+    LineStopsKey,
+    LineStopsValue,
+    LineStopTimesKey,
+    LineStopTimesValue,
+    StoreState
+} from '@/store/config';
 
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
 import { InjectionKey } from 'vue';
@@ -33,16 +39,13 @@ export const store = createStore<StoreState>({
         },
         [StoreMutation.SetLineStops](
             state,
-            { line, stops }: { line: BusStop['line']; stops: BusStop['stop'][] }
+            { line, stops }: { line: LineStopsKey; stops: LineStopsValue }
         ) {
             state.lineStops[line] = stops;
         },
         [StoreMutation.SetLineStopTimes](
             state,
-            {
-                key,
-                times
-            }: { key: { line: BusStop['line']; stop: BusStop['stop'] }; times: BusStop['time'][] }
+            { key, times }: { key: LineStopTimesKey; times: LineStopTimesValue }
         ) {
             state.lineStopTimes.set(key, times);
         }
@@ -88,10 +91,7 @@ export const store = createStore<StoreState>({
 
             return stops;
         },
-        [StoreAction.GetTimesForLineStop](
-            { state, commit },
-            key: { line: BusStop['line']; stop: BusStop['stop'] }
-        ) {
+        [StoreAction.GetTimesForLineStop]({ state, commit }, key: LineStopTimesKey) {
             if (state.lineStopTimes.has(key)) {
                 return state.lineStopTimes.get(key);
             }
