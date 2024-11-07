@@ -7,7 +7,6 @@ import { StoreAction, StoreState } from '@/store/config';
 import { key } from '@/store';
 
 import App from '@/App.vue';
-import MainHeader from '@/components/MainHeader/MainHeader.vue';
 
 describe('App', () => {
     const fetchBusStopsMock = jest.fn();
@@ -52,14 +51,6 @@ describe('App', () => {
         expect(wrapper.element).toMatchSnapshot();
     });
 
-    it('renders Timetable title', () => {
-        const wrapper = AppFactory({
-            status: BusStopsFetchStatus.FETCHED
-        });
-
-        expect(wrapper.findComponent(MainHeader).props()['title']).toBe('Timetable');
-    });
-
     it('fetch data function has been called', () => {
         AppFactory();
 
@@ -71,7 +62,7 @@ describe('App', () => {
             status: BusStopsFetchStatus.FETCHED
         });
 
-        expect(wrapper.find('.app-container').exists()).toBe(true);
+        expect(wrapper.find('.dashboard').exists()).toBe(true);
         expect(wrapper.find('.message-loading').exists()).toBe(false);
         expect(wrapper.find('.message-error').exists()).toBe(false);
     });
@@ -81,7 +72,7 @@ describe('App', () => {
             status: BusStopsFetchStatus.FETCHING
         });
 
-        expect(wrapper.find('.app-container').exists()).toBe(false);
+        expect(wrapper.find('.dashboard').exists()).toBe(false);
         expect(wrapper.find('.message-loading').exists()).toBe(true);
         expect(wrapper.find('.message-error').exists()).toBe(false);
     });
@@ -91,7 +82,7 @@ describe('App', () => {
             status: BusStopsFetchStatus.ERROR
         });
 
-        expect(wrapper.find('.app-container').exists()).toBe(false);
+        expect(wrapper.find('.dashboard').exists()).toBe(false);
         expect(wrapper.find('.message-loading').exists()).toBe(false);
         expect(wrapper.find('.message-error').exists()).toBe(true);
     });
@@ -101,7 +92,7 @@ describe('App', () => {
             status: BusStopsFetchStatus.UNFETCHED
         });
 
-        expect(wrapper.find('.app-container').exists()).toBe(false);
+        expect(wrapper.find('.dashboard').exists()).toBe(false);
         expect(wrapper.find('.message-loading').exists()).toBe(false);
         expect(wrapper.find('.message-error').exists()).toBe(false);
     });

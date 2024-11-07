@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard renders proper html markup 1`] = `
+<div
+  class="dashboard"
+>
+  <main-header-stub
+    class="main-header"
+    title="Timetable"
+  />
+  <navigation-bar-stub />
+  <main
+    class="main-content"
+  >
+    <router-view-stub
+      name="default"
+    />
+  </main>
+</div>
+`;

@@ -1,19 +1,7 @@
 <template>
     <div class="app">
         <Transition name="fade" mode="out-in">
-            <div v-if="status === BusStopsFetchStatus.FETCHED" class="app-container">
-                <MainHeader title="Timetable" class="main-header" />
-
-                <NavigationBar />
-
-                <main class="main-content">
-                    <RouterView v-slot="{ Component }">
-                        <Transition name="fade" mode="out-in">
-                            <component :is="Component" />
-                        </Transition>
-                    </RouterView>
-                </main>
-            </div>
+            <Dashboard v-if="status === BusStopsFetchStatus.FETCHED" class="dashboard" />
             <div v-else-if="status === BusStopsFetchStatus.FETCHING" class="message-loading">
                 Loading data
             </div>
@@ -27,16 +15,14 @@
 
 <script setup lang="ts">
 import { computed, onBeforeMount } from 'vue';
-import { RouterView } from 'vue-router';
 
 import { StoreAction } from '@/store/config';
 import { useStore } from '@/store';
 
 import { BusStopsFetchStatus } from '@/types';
 
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue';
-import MainHeader from '@/components/MainHeader/MainHeader.vue';
 import BaseButton from '@/components/BaseButton/BaseButton.vue';
+import Dashboard from './components/Dashboard/Dashboard.vue';
 
 const store = useStore();
 const status = computed(() => store.state.status);
@@ -53,24 +39,6 @@ onBeforeMount(() => {
 <style lang="scss" scoped>
 .app {
     padding: 2.5rem 2rem;
-
-    .app-container {
-        max-width: 1376px;
-        margin: 0 auto;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .main-header {
-        margin-bottom: 0.5rem;
-    }
-
-    .main-content {
-        flex: 1;
-        min-height: 0;
-    }
 
     .message-loading,
     .message-error {

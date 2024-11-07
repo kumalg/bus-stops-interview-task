@@ -19,9 +19,6 @@ describe('StopsPage', () => {
             global: {
                 provide: {
                     [key as unknown as string]: store
-                },
-                stubs: {
-                    CardList
                 }
             }
         });

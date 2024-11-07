@@ -1,9 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StopsPage renders proper html markup 1`] = `
-<base-card-stub
-  class="card-list stops-page"
+<card-list-stub
+  class="stops-page"
+  filterable="true"
+  items="stop1,stop2,stop3"
+  reversible="true"
+  selectable="false"
+  subtitle="Bus Stops"
   title=""
-  withoutpaddings="true"
 />
 `;
