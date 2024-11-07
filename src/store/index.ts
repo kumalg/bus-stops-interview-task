@@ -77,12 +77,12 @@ export const store = createStore<StoreState>({
                 commit(StoreMutation.SetStatus, BusStopsFetchStatus.ERROR);
             }
         },
-        [StoreAction.GetLineStops]({ state, commit }, line: number) {
-            if (state.lineStops.has(line)) {
-                return state.lineStops.get(line);
+        [StoreAction.GetLineStops]({ state: { lineStops, busStops }, commit }, line: number) {
+            if (lineStops.has(line)) {
+                return lineStops.get(line);
             }
 
-            const stopFullObjects = state.busStops.filter((busStop) => busStop.line === line);
+            const stopFullObjects = busStops.filter((busStop) => busStop.line === line);
             stopFullObjects.sort(({ order: aOrder }, { order: bOrder }) => aOrder - bOrder);
 
             const stops = [...new Set(stopFullObjects.map(({ stop }) => stop))];
@@ -91,16 +91,19 @@ export const store = createStore<StoreState>({
 
             return stops;
         },
-        [StoreAction.GetTimesForLineStop]({ state, commit }, key: LineStopTimesKey) {
-            if (state.lineStopTimes.has(key)) {
-                return state.lineStopTimes.get(key);
+        [StoreAction.GetTimesForLineStop](
+            { state: { lineStopTimes, busStops }, commit },
+            key: LineStopTimesKey
+        ) {
+            if (lineStopTimes.has(key)) {
+                return lineStopTimes.get(key);
             }
 
             let times;
             try {
                 times = toSortedTimes(
                     new Set(
-                        state.busStops
+                        busStops
                             .filter(({ line, stop }) => line === key.line && stop === key.stop)
                             .map(({ time }) => time)
                     )
