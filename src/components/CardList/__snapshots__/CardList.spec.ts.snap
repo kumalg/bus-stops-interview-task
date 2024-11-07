@@ -2,7 +2,7 @@
 
 exports[`CardList renders proper html markup with only required props 1`] = `
 <div
-  class="card no-paddings card-list"
+  class="base-card no-paddings card-list"
 >
   <!--v-if-->
   <div
@@ -29,46 +29,38 @@ exports[`CardList renders proper html markup with only required props 1`] = `
         <li
           class="card-list-item list-item"
         >
-          <button
-            class="button"
-            tabindex="-1"
-            type="button"
+          <div
+            class="item"
           >
             firstValue
-          </button>
+          </div>
         </li>
         <li
           class="card-list-item list-item"
         >
-          <button
-            class="button"
-            tabindex="-1"
-            type="button"
+          <div
+            class="item"
           >
             secondValue
-          </button>
+          </div>
         </li>
         <li
           class="card-list-item list-item"
         >
-          <button
-            class="button"
-            tabindex="-1"
-            type="button"
+          <div
+            class="item"
           >
             thirdValue
-          </button>
+          </div>
         </li>
         <li
           class="card-list-item list-item"
         >
-          <button
-            class="button"
-            tabindex="-1"
-            type="button"
+          <div
+            class="item"
           >
             differentName
-          </button>
+          </div>
         </li>
         
       </ul>
@@ -80,7 +72,7 @@ exports[`CardList renders proper html markup with only required props 1`] = `
 
 exports[`CardList renders proper html markup with opional props 1`] = `
 <div
-  class="card no-paddings card-list"
+  class="base-card no-paddings card-list"
 >
   <!--v-if-->
   <div
@@ -122,7 +114,7 @@ exports[`CardList renders proper html markup with opional props 1`] = `
           class="card-list-item list-item"
         >
           <button
-            class="button selectable"
+            class="item selectable"
             tabindex="0"
             type="button"
           >
@@ -133,7 +125,7 @@ exports[`CardList renders proper html markup with opional props 1`] = `
           class="card-list-item list-item"
         >
           <button
-            class="button selectable"
+            class="item selectable"
             tabindex="0"
             type="button"
           >
@@ -144,7 +136,7 @@ exports[`CardList renders proper html markup with opional props 1`] = `
           class="card-list-item list-item"
         >
           <button
-            class="button selectable"
+            class="item selectable"
             tabindex="0"
             type="button"
           >
@@ -155,7 +147,7 @@ exports[`CardList renders proper html markup with opional props 1`] = `
           class="card-list-item list-item"
         >
           <button
-            class="button selectable"
+            class="item selectable"
             tabindex="0"
             type="button"
           >

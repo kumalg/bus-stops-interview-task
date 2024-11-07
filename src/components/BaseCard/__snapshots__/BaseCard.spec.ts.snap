@@ -2,7 +2,7 @@
 
 exports[`BaseCard renders proper html markup 1`] = `
 <div
-  class="card"
+  class="base-card"
 >
   <div
     class="card-header"

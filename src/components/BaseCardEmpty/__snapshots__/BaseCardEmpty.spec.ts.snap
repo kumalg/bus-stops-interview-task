@@ -2,10 +2,10 @@
 
 exports[`BaseCardEmpty renders proper html markup 1`] = `
 <div
-  class="empty-card-container"
+  class="base-card-empty-container"
 >
   <div
-    class="card empty-card"
+    class="base-card base-card-empty"
   >
     <!--v-if-->
     <div

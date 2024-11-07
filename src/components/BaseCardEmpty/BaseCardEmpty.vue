@@ -1,6 +1,6 @@
 <template>
-    <div ref="cardEl" class="empty-card-container">
-        <BaseCard class="empty-card">
+    <div ref="cardEl" class="base-card-empty-container">
+        <BaseCard class="base-card-empty">
             <svg
                 class="svg"
                 :width="svgSize.width"
@@ -9,14 +9,14 @@
                 xmlns="http://www.w3.org/2000/svg"
             >
                 <rect
+                    :width="cardSize.width"
+                    :height="cardSize.height"
                     class="svg-rect"
                     x="1"
                     y="1"
                     rx="4"
                     ry="4"
                     fill="transparent"
-                    :width="cardSize.width"
-                    :height="cardSize.height"
                     stroke-width="2px"
                     stroke-dasharray="25 30"
                     stroke-linecap="round"
@@ -68,11 +68,11 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss" scoped>
-.empty-card-container {
+.base-card-empty-container {
     display: flex;
 }
 
-.empty-card {
+.base-card-empty {
     flex: 1;
     position: relative;
     overflow: initial;

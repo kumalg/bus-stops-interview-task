@@ -1,5 +1,5 @@
 <template>
-    <div class="card" :class="{ 'no-paddings': withoutPaddings }">
+    <div class="base-card" :class="{ 'no-paddings': withoutPaddings }">
         <div v-if="title" class="card-header">
             <h2>{{ title }}</h2>
         </div>
@@ -23,7 +23,7 @@ withDefaults(
 </script>
 
 <style lang="scss" scoped>
-.card {
+.base-card {
     background-color: $color-gray-000;
     border-radius: 0.25rem;
     display: flex;

@@ -1,18 +1,18 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
-import { ROUTE_PATHS } from './routes';
+import { ROUTE_PAGE_TITLES, ROUTE_PATHS } from './routes';
 import { nextTick } from 'vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: ROUTE_PATHS.BUS_LINES,
         component: () => import('@/pages/BusLinesPage.vue'),
-        meta: { title: 'Bus Lines' }
+        meta: { title: ROUTE_PAGE_TITLES.BUS_LINES }
     },
     {
         path: ROUTE_PATHS.STOPS,
         component: () => import('@/pages/StopsPage.vue'),
-        meta: { title: 'Stops' }
+        meta: { title: ROUTE_PAGE_TITLES.STOPS }
     }
 ];
 
