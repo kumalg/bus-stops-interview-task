@@ -1,14 +1,18 @@
 <template>
     <li class="card-list-item">
         <button
-            :tabindex="selectable ? 0 : -1"
-            class="button"
-            :class="{ selectable, active: selectable && selectedItem === item }"
+            v-if="selectable"
+            class="item selectable"
+            tabindex="0"
             type="button"
+            :class="{ active: selectable && selectedItem === item }"
             @click="selectable && selectItem()"
         >
             {{ item }}
         </button>
+        <div v-else class="item">
+            {{ item }}
+        </div>
     </li>
 </template>
 
@@ -30,8 +34,9 @@ const selectItem = () => {
 
 <style lang="scss" scoped>
 .card-list-item {
-    .button {
-        display: block;
+    .item {
+        display: flex;
+        align-items: center;
         width: 100%;
         height: 3.5rem;
         border: none;
@@ -40,12 +45,12 @@ const selectItem = () => {
         padding: 0 $card-padding;
         color: $color-gray-800;
         font-family: inherit;
-        user-select: none;
 
         @include default-transition('color, background-color');
 
         &.selectable {
             cursor: pointer;
+            user-select: none;
 
             &:hover,
             &.hover {
