@@ -25,8 +25,6 @@ export type LineStopTimesValue = BusStop['time'][];
 export type StoreState = {
     busStops: BusStop[];
     status: BusStopsFetchStatus;
-    lineStops: {
-        [key in LineStopsKey]: LineStopsValue;
-    };
+    lineStops: Map<LineStopsKey, LineStopsValue>;
     lineStopTimes: Map<LineStopTimesKey, LineStopTimesValue>;
 };

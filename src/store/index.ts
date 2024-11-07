@@ -23,7 +23,7 @@ export const store = createStore<StoreState>({
     state: {
         busStops: [],
         status: BusStopsFetchStatus.UNFETCHED,
-        lineStops: {},
+        lineStops: new Map(),
         lineStopTimes: new Map()
     },
     getters: {
@@ -41,7 +41,7 @@ export const store = createStore<StoreState>({
             state,
             { line, stops }: { line: LineStopsKey; stops: LineStopsValue }
         ) {
-            state.lineStops[line] = stops;
+            state.lineStops.set(line, stops);
         },
         [StoreMutation.SetLineStopTimes](
             state,
@@ -78,8 +78,8 @@ export const store = createStore<StoreState>({
             }
         },
         [StoreAction.GetLineStops]({ state, commit }, line: number) {
-            if (line in state.lineStops && typeof state.lineStops[line] === 'object') {
-                return state.lineStops[line];
+            if (state.lineStops.has(line)) {
+                return state.lineStops.get(line);
             }
 
             const stopFullObjects = state.busStops.filter((busStop) => busStop.line === line);

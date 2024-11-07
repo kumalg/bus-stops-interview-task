@@ -19,7 +19,7 @@ describe('App', () => {
         const state: StoreState = {
             busStops: [],
             status,
-            lineStops: [],
+            lineStops: new Map(),
             lineStopTimes: new Map()
         };
 

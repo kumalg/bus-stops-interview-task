@@ -43,15 +43,17 @@ const CardListStub = {
 
 describe('BusLinesPage', () => {
     const LINES = [101, 102, 103] as const;
-    const LINE_STOPS: { [key in (typeof LINES)[number]]: string[] } = {
-        101: ['stop1', 'stop2', 'stop3'],
-        102: ['stop4', 'stop5', 'stop6'],
-        103: ['stop7', 'stop8', 'stop9']
-    };
+
+    const LINE_STOPS: StoreState['lineStops'] = new Map([
+        [101, ['stop1', 'stop2', 'stop3']],
+        [102, ['stop4', 'stop5', 'stop6']],
+        [103, ['stop7', 'stop8', 'stop9']]
+    ]);
+
     const LINE_STOP_TIMES: StoreState['lineStopTimes'] = new Map();
-    LINE_STOP_TIMES.set({ line: 101, stop: LINE_STOPS[101][0] }, ['9:10', '9:15', '9:20']);
-    LINE_STOP_TIMES.set({ line: 102, stop: LINE_STOPS[102][0] }, ['10:10', '10:15', '10:20']);
-    LINE_STOP_TIMES.set({ line: 103, stop: LINE_STOPS[103][0] }, ['11:10', '11:15', '11:20']);
+    LINE_STOP_TIMES.set({ line: 101, stop: 'stop1' }, ['9:10', '9:15', '9:20']);
+    LINE_STOP_TIMES.set({ line: 102, stop: 'stop4' }, ['10:10', '10:15', '10:20']);
+    LINE_STOP_TIMES.set({ line: 103, stop: 'stop7' }, ['11:10', '11:15', '11:20']);
 
     const BusLinesPageFactory = () => {
         const state: StoreState = {
@@ -68,10 +70,10 @@ describe('BusLinesPage', () => {
             },
             actions: {
                 [StoreAction.GetLineStops]() {
-                    return LINE_STOPS[101];
+                    return LINE_STOPS.get(101);
                 },
                 [StoreAction.GetTimesForLineStop]() {
-                    return LINE_STOP_TIMES.get({ line: 101, stop: LINE_STOPS[101][0] });
+                    return LINE_STOP_TIMES.get({ line: 101, stop: 'stop1' });
                 }
             }
         });
@@ -101,9 +103,7 @@ describe('BusLinesPage', () => {
 
         await wrapper.findAll('.line-button')[0]?.trigger('click');
 
-        wrapper
-            .findAllComponents(CardListStub)[0]
-            .vm.$emit('update:model-value', LINE_STOPS[101][0]);
+        wrapper.findAllComponents(CardListStub)[0].vm.$emit('update:model-value', 'stop1');
 
         await flushPromises();
 
@@ -163,9 +163,7 @@ describe('BusLinesPage', () => {
         expect(wrapper.find('.bus-stops-empty-card').exists()).toBe(false);
         expect(wrapper.find('.bus-stops-card').exists()).toBe(true);
 
-        wrapper
-            .findAllComponents(CardListStub)[0]
-            .vm.$emit('update:model-value', LINE_STOPS[101][0]);
+        wrapper.findAllComponents(CardListStub)[0].vm.$emit('update:model-value', 'stop1');
 
         await flushPromises();
 
