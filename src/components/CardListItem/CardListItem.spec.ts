@@ -29,17 +29,15 @@ describe('CardListItem', () => {
             selectedItem: EXAMPLE_ITEM_2
         });
 
-        const buttonEl = wrapper.find('button.button');
-
-        expect(buttonEl.classes()).not.toContain('selectable');
-        expect(buttonEl.attributes()['tabindex']).toBe('-1');
+        expect(wrapper.find('div.item').exists()).toBe(true);
+        expect(wrapper.find('button.item').exists()).toBe(false);
 
         await wrapper.setProps({
             selectable: true
         });
 
-        expect(buttonEl.classes()).toContain('selectable');
-        expect(buttonEl.attributes()['tabindex']).toBe('0');
+        expect(wrapper.find('div.item').exists()).toBe(false);
+        expect(wrapper.find('button.item').exists()).toBe(true);
     });
 
     it('add active class if selectedItem matches item', async () => {
@@ -49,15 +47,13 @@ describe('CardListItem', () => {
             selectedItem: EXAMPLE_ITEM_1
         });
 
-        const buttonEl = wrapper.find('button.button');
-
-        expect(buttonEl.classes()).not.toContain('active');
+        expect(wrapper.find('.item').classes()).not.toContain('active');
 
         await wrapper.setProps({
             selectable: true
         });
 
-        expect(buttonEl.classes()).toContain('active');
+        expect(wrapper.find('.item').classes()).toContain('active');
     });
 
     it('triggers event if selectable is true', async () => {
@@ -67,16 +63,14 @@ describe('CardListItem', () => {
             selectedItem: EXAMPLE_ITEM_2
         });
 
-        const buttonEl = wrapper.find('button.button');
-        await buttonEl.trigger('click');
-
+        await wrapper.find('.item').trigger('click');
         expect(wrapper.emitted('select-item')).toBe(undefined);
 
         await wrapper.setProps({
             selectable: true
         });
 
-        await buttonEl.trigger('click');
+        await wrapper.find('.item').trigger('click');
         expect(wrapper.emitted('select-item')?.length).toBe(1);
     });
 });

@@ -5,7 +5,7 @@ exports[`CardListItem renders proper html markup 1`] = `
   class="card-list-item"
 >
   <button
-    class="button selectable"
+    class="item selectable"
     tabindex="0"
     type="button"
   >
